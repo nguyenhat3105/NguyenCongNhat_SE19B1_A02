@@ -1,0 +1,16 @@
+C:\Users\CONG NHAT\OneDrive\Desktop\C#\Session3-OOP\Assignment\FUMiniHotelManagement.BLL\bin\Debug\net8.0\FUMiniHotelManagement.BLL.deps.json
+C:\Users\CONG NHAT\OneDrive\Desktop\C#\Session3-OOP\Assignment\FUMiniHotelManagement.BLL\bin\Debug\net8.0\FUMiniHotelManagement.BLL.dll
+C:\Users\CONG NHAT\OneDrive\Desktop\C#\Session3-OOP\Assignment\FUMiniHotelManagement.BLL\bin\Debug\net8.0\FUMiniHotelManagement.BLL.pdb
+C:\Users\CONG NHAT\OneDrive\Desktop\C#\Session3-OOP\Assignment\FUMiniHotelManagement.BLL\bin\Debug\net8.0\FUMiniHotelManagement.DAL.dll
+C:\Users\CONG NHAT\OneDrive\Desktop\C#\Session3-OOP\Assignment\FUMiniHotelManagement.BLL\bin\Debug\net8.0\FUMiniHotelManagement.DAL.pdb
+C:\Users\CONG NHAT\OneDrive\Desktop\C#\Session3-OOP\Assignment\FUMiniHotelManagement.BLL\obj\Debug\net8.0\FUMiniHotelManagement.BLL.csproj.AssemblyReference.cache
+C:\Users\CONG NHAT\OneDrive\Desktop\C#\Session3-OOP\Assignment\FUMiniHotelManagement.BLL\obj\Debug\net8.0\FUMiniHotelManagement.BLL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\CONG NHAT\OneDrive\Desktop\C#\Session3-OOP\Assignment\FUMiniHotelManagement.BLL\obj\Debug\net8.0\FUMiniHotelManagement.BLL.AssemblyInfoInputs.cache
+C:\Users\CONG NHAT\OneDrive\Desktop\C#\Session3-OOP\Assignment\FUMiniHotelManagement.BLL\obj\Debug\net8.0\FUMiniHotelManagement.BLL.AssemblyInfo.cs
+C:\Users\CONG NHAT\OneDrive\Desktop\C#\Session3-OOP\Assignment\FUMiniHotelManagement.BLL\obj\Debug\net8.0\FUMiniHotelManagement.BLL.csproj.CoreCompileInputs.cache
+C:\Users\CONG NHAT\OneDrive\Desktop\C#\Session3-OOP\Assignment\FUMiniHotelManagement.BLL\obj\Debug\net8.0\FUMiniHotelManagement.BLL.sourcelink.json
+C:\Users\CONG NHAT\OneDrive\Desktop\C#\Session3-OOP\Assignment\FUMiniHotelManagement.BLL\obj\Debug\net8.0\FUMiniHo.6D0D0356.Up2Date
+C:\Users\CONG NHAT\OneDrive\Desktop\C#\Session3-OOP\Assignment\FUMiniHotelManagement.BLL\obj\Debug\net8.0\FUMiniHotelManagement.BLL.dll
+C:\Users\CONG NHAT\OneDrive\Desktop\C#\Session3-OOP\Assignment\FUMiniHotelManagement.BLL\obj\Debug\net8.0\refint\FUMiniHotelManagement.BLL.dll
+C:\Users\CONG NHAT\OneDrive\Desktop\C#\Session3-OOP\Assignment\FUMiniHotelManagement.BLL\obj\Debug\net8.0\FUMiniHotelManagement.BLL.pdb
+C:\Users\CONG NHAT\OneDrive\Desktop\C#\Session3-OOP\Assignment\FUMiniHotelManagement.BLL\obj\Debug\net8.0\ref\FUMiniHotelManagement.BLL.dll

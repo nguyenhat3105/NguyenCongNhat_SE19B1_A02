@@ -1,0 +1,450 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1BB5011F-0F27-4E70-AD4B-79CC888B1C8A}|FUMiniHotelManagement\\FUMiniHotelManagement.csproj|c:\\users\\cong nhat\\onedrive\\desktop\\c#\\session3-oop\\assignment\\fuminihotelmanagement\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{1BB5011F-0F27-4E70-AD4B-79CC888B1C8A}|FUMiniHotelManagement\\FUMiniHotelManagement.csproj|solutionrelative:fuminihotelmanagement\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BB5011F-0F27-4E70-AD4B-79CC888B1C8A}|FUMiniHotelManagement\\FUMiniHotelManagement.csproj|c:\\users\\cong nhat\\onedrive\\desktop\\c#\\session3-oop\\assignment\\fuminihotelmanagement\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BB5011F-0F27-4E70-AD4B-79CC888B1C8A}|FUMiniHotelManagement\\FUMiniHotelManagement.csproj|solutionrelative:fuminihotelmanagement\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B9855182-2174-4F57-8FC6-BA2D9C3253F8}|FUMiniHotelManagement.DAL\\FUMiniHotelManagement.DAL.csproj|c:\\users\\cong nhat\\onedrive\\desktop\\c#\\session3-oop\\assignment\\fuminihotelmanagement.dal\\repositories\\bookingreservationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B9855182-2174-4F57-8FC6-BA2D9C3253F8}|FUMiniHotelManagement.DAL\\FUMiniHotelManagement.DAL.csproj|solutionrelative:fuminihotelmanagement.dal\\repositories\\bookingreservationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BB5011F-0F27-4E70-AD4B-79CC888B1C8A}|FUMiniHotelManagement\\FUMiniHotelManagement.csproj|c:\\users\\cong nhat\\onedrive\\desktop\\c#\\session3-oop\\assignment\\fuminihotelmanagement\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{1BB5011F-0F27-4E70-AD4B-79CC888B1C8A}|FUMiniHotelManagement\\FUMiniHotelManagement.csproj|solutionrelative:fuminihotelmanagement\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BB5011F-0F27-4E70-AD4B-79CC888B1C8A}|FUMiniHotelManagement\\FUMiniHotelManagement.csproj|c:\\users\\cong nhat\\onedrive\\desktop\\c#\\session3-oop\\assignment\\fuminihotelmanagement\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BB5011F-0F27-4E70-AD4B-79CC888B1C8A}|FUMiniHotelManagement\\FUMiniHotelManagement.csproj|solutionrelative:fuminihotelmanagement\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BB5011F-0F27-4E70-AD4B-79CC888B1C8A}|FUMiniHotelManagement\\FUMiniHotelManagement.csproj|c:\\users\\cong nhat\\onedrive\\desktop\\c#\\session3-oop\\assignment\\fuminihotelmanagement\\viewmodel\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BB5011F-0F27-4E70-AD4B-79CC888B1C8A}|FUMiniHotelManagement\\FUMiniHotelManagement.csproj|solutionrelative:fuminihotelmanagement\\viewmodel\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B9855182-2174-4F57-8FC6-BA2D9C3253F8}|FUMiniHotelManagement.DAL\\FUMiniHotelManagement.DAL.csproj|c:\\users\\cong nhat\\onedrive\\desktop\\c#\\session3-oop\\assignment\\fuminihotelmanagement.dal\\entities\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B9855182-2174-4F57-8FC6-BA2D9C3253F8}|FUMiniHotelManagement.DAL\\FUMiniHotelManagement.DAL.csproj|solutionrelative:fuminihotelmanagement.dal\\entities\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BB5011F-0F27-4E70-AD4B-79CC888B1C8A}|FUMiniHotelManagement\\FUMiniHotelManagement.csproj|c:\\users\\cong nhat\\onedrive\\desktop\\c#\\session3-oop\\assignment\\fuminihotelmanagement\\views\\customerview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{1BB5011F-0F27-4E70-AD4B-79CC888B1C8A}|FUMiniHotelManagement\\FUMiniHotelManagement.csproj|solutionrelative:fuminihotelmanagement\\views\\customerview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BB5011F-0F27-4E70-AD4B-79CC888B1C8A}|FUMiniHotelManagement\\FUMiniHotelManagement.csproj|c:\\users\\cong nhat\\onedrive\\desktop\\c#\\session3-oop\\assignment\\fuminihotelmanagement\\views\\customerview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BB5011F-0F27-4E70-AD4B-79CC888B1C8A}|FUMiniHotelManagement\\FUMiniHotelManagement.csproj|solutionrelative:fuminihotelmanagement\\views\\customerview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BB5011F-0F27-4E70-AD4B-79CC888B1C8A}|FUMiniHotelManagement\\FUMiniHotelManagement.csproj|c:\\users\\cong nhat\\onedrive\\desktop\\c#\\session3-oop\\assignment\\fuminihotelmanagement\\views\\roomview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{1BB5011F-0F27-4E70-AD4B-79CC888B1C8A}|FUMiniHotelManagement\\FUMiniHotelManagement.csproj|solutionrelative:fuminihotelmanagement\\views\\roomview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B9855182-2174-4F57-8FC6-BA2D9C3253F8}|FUMiniHotelManagement.DAL\\FUMiniHotelManagement.DAL.csproj|c:\\users\\cong nhat\\onedrive\\desktop\\c#\\session3-oop\\assignment\\fuminihotelmanagement.dal\\fuminihotelmanagementcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B9855182-2174-4F57-8FC6-BA2D9C3253F8}|FUMiniHotelManagement.DAL\\FUMiniHotelManagement.DAL.csproj|solutionrelative:fuminihotelmanagement.dal\\fuminihotelmanagementcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BB5011F-0F27-4E70-AD4B-79CC888B1C8A}|FUMiniHotelManagement\\FUMiniHotelManagement.csproj|c:\\users\\cong nhat\\onedrive\\desktop\\c#\\session3-oop\\assignment\\fuminihotelmanagement\\helper\\relaycommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BB5011F-0F27-4E70-AD4B-79CC888B1C8A}|FUMiniHotelManagement\\FUMiniHotelManagement.csproj|solutionrelative:fuminihotelmanagement\\helper\\relaycommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BB5011F-0F27-4E70-AD4B-79CC888B1C8A}|FUMiniHotelManagement\\FUMiniHotelManagement.csproj|c:\\users\\cong nhat\\onedrive\\desktop\\c#\\session3-oop\\assignment\\fuminihotelmanagement\\helper\\observableobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BB5011F-0F27-4E70-AD4B-79CC888B1C8A}|FUMiniHotelManagement\\FUMiniHotelManagement.csproj|solutionrelative:fuminihotelmanagement\\helper\\observableobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BB5011F-0F27-4E70-AD4B-79CC888B1C8A}|FUMiniHotelManagement\\FUMiniHotelManagement.csproj|c:\\users\\cong nhat\\onedrive\\desktop\\c#\\session3-oop\\assignment\\fuminihotelmanagement\\helper\\booltovisibilityconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BB5011F-0F27-4E70-AD4B-79CC888B1C8A}|FUMiniHotelManagement\\FUMiniHotelManagement.csproj|solutionrelative:fuminihotelmanagement\\helper\\booltovisibilityconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B9855182-2174-4F57-8FC6-BA2D9C3253F8}|FUMiniHotelManagement.DAL\\FUMiniHotelManagement.DAL.csproj|c:\\users\\cong nhat\\onedrive\\desktop\\c#\\session3-oop\\assignment\\fuminihotelmanagement.dal\\repositories\\customerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B9855182-2174-4F57-8FC6-BA2D9C3253F8}|FUMiniHotelManagement.DAL\\FUMiniHotelManagement.DAL.csproj|solutionrelative:fuminihotelmanagement.dal\\repositories\\customerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{145D0CEA-CB91-44C8-98D3-C40CD48DD569}|FUMiniHotelManagement.BLL\\FUMiniHotelManagement.BLL.csproj|c:\\users\\cong nhat\\onedrive\\desktop\\c#\\session3-oop\\assignment\\fuminihotelmanagement.bll\\services\\roomservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{145D0CEA-CB91-44C8-98D3-C40CD48DD569}|FUMiniHotelManagement.BLL\\FUMiniHotelManagement.BLL.csproj|solutionrelative:fuminihotelmanagement.bll\\services\\roomservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{145D0CEA-CB91-44C8-98D3-C40CD48DD569}|FUMiniHotelManagement.BLL\\FUMiniHotelManagement.BLL.csproj|c:\\users\\cong nhat\\onedrive\\desktop\\c#\\session3-oop\\assignment\\fuminihotelmanagement.bll\\services\\iroomservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{145D0CEA-CB91-44C8-98D3-C40CD48DD569}|FUMiniHotelManagement.BLL\\FUMiniHotelManagement.BLL.csproj|solutionrelative:fuminihotelmanagement.bll\\services\\iroomservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{145D0CEA-CB91-44C8-98D3-C40CD48DD569}|FUMiniHotelManagement.BLL\\FUMiniHotelManagement.BLL.csproj|c:\\users\\cong nhat\\onedrive\\desktop\\c#\\session3-oop\\assignment\\fuminihotelmanagement.bll\\services\\icustomerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{145D0CEA-CB91-44C8-98D3-C40CD48DD569}|FUMiniHotelManagement.BLL\\FUMiniHotelManagement.BLL.csproj|solutionrelative:fuminihotelmanagement.bll\\services\\icustomerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{145D0CEA-CB91-44C8-98D3-C40CD48DD569}|FUMiniHotelManagement.BLL\\FUMiniHotelManagement.BLL.csproj|c:\\users\\cong nhat\\onedrive\\desktop\\c#\\session3-oop\\assignment\\fuminihotelmanagement.bll\\services\\customerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{145D0CEA-CB91-44C8-98D3-C40CD48DD569}|FUMiniHotelManagement.BLL\\FUMiniHotelManagement.BLL.csproj|solutionrelative:fuminihotelmanagement.bll\\services\\customerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BB5011F-0F27-4E70-AD4B-79CC888B1C8A}|FUMiniHotelManagement\\FUMiniHotelManagement.csproj|c:\\users\\cong nhat\\onedrive\\desktop\\c#\\session3-oop\\assignment\\fuminihotelmanagement\\loginwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BB5011F-0F27-4E70-AD4B-79CC888B1C8A}|FUMiniHotelManagement\\FUMiniHotelManagement.csproj|solutionrelative:fuminihotelmanagement\\loginwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BB5011F-0F27-4E70-AD4B-79CC888B1C8A}|FUMiniHotelManagement\\FUMiniHotelManagement.csproj|c:\\users\\cong nhat\\onedrive\\desktop\\c#\\session3-oop\\assignment\\fuminihotelmanagement\\loginwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{1BB5011F-0F27-4E70-AD4B-79CC888B1C8A}|FUMiniHotelManagement\\FUMiniHotelManagement.csproj|solutionrelative:fuminihotelmanagement\\loginwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BB5011F-0F27-4E70-AD4B-79CC888B1C8A}|FUMiniHotelManagement\\FUMiniHotelManagement.csproj|c:\\users\\cong nhat\\onedrive\\desktop\\c#\\session3-oop\\assignment\\fuminihotelmanagement\\viewmodel\\customerviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BB5011F-0F27-4E70-AD4B-79CC888B1C8A}|FUMiniHotelManagement\\FUMiniHotelManagement.csproj|solutionrelative:fuminihotelmanagement\\viewmodel\\customerviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BB5011F-0F27-4E70-AD4B-79CC888B1C8A}|FUMiniHotelManagement\\FUMiniHotelManagement.csproj|c:\\users\\cong nhat\\onedrive\\desktop\\c#\\session3-oop\\assignment\\fuminihotelmanagement\\viewmodel\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BB5011F-0F27-4E70-AD4B-79CC888B1C8A}|FUMiniHotelManagement\\FUMiniHotelManagement.csproj|solutionrelative:fuminihotelmanagement\\viewmodel\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BB5011F-0F27-4E70-AD4B-79CC888B1C8A}|FUMiniHotelManagement\\FUMiniHotelManagement.csproj|c:\\users\\cong nhat\\onedrive\\desktop\\c#\\session3-oop\\assignment\\fuminihotelmanagement\\viewmodel\\roomviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BB5011F-0F27-4E70-AD4B-79CC888B1C8A}|FUMiniHotelManagement\\FUMiniHotelManagement.csproj|solutionrelative:fuminihotelmanagement\\viewmodel\\roomviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B9855182-2174-4F57-8FC6-BA2D9C3253F8}|FUMiniHotelManagement.DAL\\FUMiniHotelManagement.DAL.csproj|c:\\users\\cong nhat\\onedrive\\desktop\\c#\\session3-oop\\assignment\\fuminihotelmanagement.dal\\repositories\\roomrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B9855182-2174-4F57-8FC6-BA2D9C3253F8}|FUMiniHotelManagement.DAL\\FUMiniHotelManagement.DAL.csproj|solutionrelative:fuminihotelmanagement.dal\\repositories\\roomrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B9855182-2174-4F57-8FC6-BA2D9C3253F8}|FUMiniHotelManagement.DAL\\FUMiniHotelManagement.DAL.csproj|c:\\users\\cong nhat\\onedrive\\desktop\\c#\\session3-oop\\assignment\\fuminihotelmanagement.dal\\repositories\\ibookingreservationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B9855182-2174-4F57-8FC6-BA2D9C3253F8}|FUMiniHotelManagement.DAL\\FUMiniHotelManagement.DAL.csproj|solutionrelative:fuminihotelmanagement.dal\\repositories\\ibookingreservationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "App.xaml",
+              "DocumentMoniker": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement\\App.xaml",
+              "RelativeDocumentMoniker": "FUMiniHotelManagement\\App.xaml",
+              "ToolTip": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement\\App.xaml",
+              "RelativeToolTip": "FUMiniHotelManagement\\App.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-10-13T19:20:37.177Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "FUMiniHotelManagement\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement\\MainWindow.xaml.cs",
+              "RelativeToolTip": "FUMiniHotelManagement\\MainWindow.xaml.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAB0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-13T19:28:17.154Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "BookingReservationRepository.cs",
+              "DocumentMoniker": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement.DAL\\Repositories\\BookingReservationRepository.cs",
+              "RelativeDocumentMoniker": "FUMiniHotelManagement.DAL\\Repositories\\BookingReservationRepository.cs",
+              "ToolTip": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement.DAL\\Repositories\\BookingReservationRepository.cs",
+              "RelativeToolTip": "FUMiniHotelManagement.DAL\\Repositories\\BookingReservationRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFkAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-14T14:29:50.377Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "CustomerView.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement\\Views\\CustomerView.xaml.cs",
+              "RelativeDocumentMoniker": "FUMiniHotelManagement\\Views\\CustomerView.xaml.cs",
+              "ToolTip": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement\\Views\\CustomerView.xaml.cs",
+              "RelativeToolTip": "FUMiniHotelManagement\\Views\\CustomerView.xaml.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAiwBYAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-14T02:01:01.109Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "MainViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement\\ViewModel\\MainViewModel.cs",
+              "RelativeDocumentMoniker": "FUMiniHotelManagement\\ViewModel\\MainViewModel.cs",
+              "ToolTip": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement\\ViewModel\\MainViewModel.cs",
+              "RelativeToolTip": "FUMiniHotelManagement\\ViewModel\\MainViewModel.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAowCcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-12T14:16:40.972Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "FUMiniHotelManagement\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement\\MainWindow.xaml",
+              "RelativeToolTip": "FUMiniHotelManagement\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-10-11T15:39:29.637Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "App.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement\\App.xaml.cs",
+              "RelativeDocumentMoniker": "FUMiniHotelManagement\\App.xaml.cs",
+              "ToolTip": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement\\App.xaml.cs",
+              "RelativeToolTip": "FUMiniHotelManagement\\App.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-13T19:20:36.093Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "CustomerView.xaml",
+              "DocumentMoniker": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement\\Views\\CustomerView.xaml",
+              "RelativeDocumentMoniker": "FUMiniHotelManagement\\Views\\CustomerView.xaml",
+              "ToolTip": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement\\Views\\CustomerView.xaml",
+              "RelativeToolTip": "FUMiniHotelManagement\\Views\\CustomerView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-10-14T02:00:32.131Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Customer.cs",
+              "DocumentMoniker": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement.DAL\\Entities\\Customer.cs",
+              "RelativeDocumentMoniker": "FUMiniHotelManagement.DAL\\Entities\\Customer.cs",
+              "ToolTip": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement.DAL\\Entities\\Customer.cs",
+              "RelativeToolTip": "FUMiniHotelManagement.DAL\\Entities\\Customer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-15T03:58:53.457Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "IBookingReservationRepository.cs",
+              "DocumentMoniker": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement.DAL\\Repositories\\IBookingReservationRepository.cs",
+              "RelativeDocumentMoniker": "FUMiniHotelManagement.DAL\\Repositories\\IBookingReservationRepository.cs",
+              "ToolTip": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement.DAL\\Repositories\\IBookingReservationRepository.cs",
+              "RelativeToolTip": "FUMiniHotelManagement.DAL\\Repositories\\IBookingReservationRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-14T14:29:30.819Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ObservableObject.cs",
+              "DocumentMoniker": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement\\Helper\\ObservableObject.cs",
+              "RelativeDocumentMoniker": "FUMiniHotelManagement\\Helper\\ObservableObject.cs",
+              "ToolTip": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement\\Helper\\ObservableObject.cs",
+              "RelativeToolTip": "FUMiniHotelManagement\\Helper\\ObservableObject.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAcwBwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-14T01:49:16.696Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "RoomView.xaml",
+              "DocumentMoniker": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement\\Views\\RoomView.xaml",
+              "RelativeDocumentMoniker": "FUMiniHotelManagement\\Views\\RoomView.xaml",
+              "ToolTip": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement\\Views\\RoomView.xaml",
+              "RelativeToolTip": "FUMiniHotelManagement\\Views\\RoomView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-10-14T05:31:10.48Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "BoolToVisibilityConverter.cs",
+              "DocumentMoniker": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement\\Helper\\BoolToVisibilityConverter.cs",
+              "RelativeDocumentMoniker": "FUMiniHotelManagement\\Helper\\BoolToVisibilityConverter.cs",
+              "ToolTip": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement\\Helper\\BoolToVisibilityConverter.cs",
+              "RelativeToolTip": "FUMiniHotelManagement\\Helper\\BoolToVisibilityConverter.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAcwBoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-14T01:49:15.947Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "CustomerRepository.cs",
+              "DocumentMoniker": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement.DAL\\Repositories\\CustomerRepository.cs",
+              "RelativeDocumentMoniker": "FUMiniHotelManagement.DAL\\Repositories\\CustomerRepository.cs",
+              "ToolTip": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement.DAL\\Repositories\\CustomerRepository.cs",
+              "RelativeToolTip": "FUMiniHotelManagement.DAL\\Repositories\\CustomerRepository.cs",
+              "ViewState": "AgIAAGsAAAAAAAAAAAAqwIEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-14T01:55:22.672Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "FuminiHotelManagementContext.cs",
+              "DocumentMoniker": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement.DAL\\FuminiHotelManagementContext.cs",
+              "RelativeDocumentMoniker": "FUMiniHotelManagement.DAL\\FuminiHotelManagementContext.cs",
+              "ToolTip": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement.DAL\\FuminiHotelManagementContext.cs",
+              "RelativeToolTip": "FUMiniHotelManagement.DAL\\FuminiHotelManagementContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHEAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-14T01:55:30.394Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "RelayCommand.cs",
+              "DocumentMoniker": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement\\Helper\\RelayCommand.cs",
+              "RelativeDocumentMoniker": "FUMiniHotelManagement\\Helper\\RelayCommand.cs",
+              "ToolTip": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement\\Helper\\RelayCommand.cs",
+              "RelativeToolTip": "FUMiniHotelManagement\\Helper\\RelayCommand.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAcwBUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-14T01:49:11.97Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "ICustomerService.cs",
+              "DocumentMoniker": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement.BLL\\Services\\ICustomerService.cs",
+              "RelativeDocumentMoniker": "FUMiniHotelManagement.BLL\\Services\\ICustomerService.cs",
+              "ToolTip": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement.BLL\\Services\\ICustomerService.cs",
+              "RelativeToolTip": "FUMiniHotelManagement.BLL\\Services\\ICustomerService.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAswBUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-13T18:57:07.388Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "CustomerService.cs",
+              "DocumentMoniker": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement.BLL\\Services\\CustomerService.cs",
+              "RelativeDocumentMoniker": "FUMiniHotelManagement.BLL\\Services\\CustomerService.cs",
+              "ToolTip": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement.BLL\\Services\\CustomerService.cs",
+              "RelativeToolTip": "FUMiniHotelManagement.BLL\\Services\\CustomerService.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAiwD4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-14T01:54:30.415Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "LoginWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement\\LoginWindow.xaml",
+              "RelativeDocumentMoniker": "FUMiniHotelManagement\\LoginWindow.xaml",
+              "ToolTip": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement\\LoginWindow.xaml",
+              "RelativeToolTip": "FUMiniHotelManagement\\LoginWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-10-14T01:35:13.429Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "IRoomService.cs",
+              "DocumentMoniker": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement.BLL\\Services\\IRoomService.cs",
+              "RelativeDocumentMoniker": "FUMiniHotelManagement.BLL\\Services\\IRoomService.cs",
+              "ToolTip": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement.BLL\\Services\\IRoomService.cs",
+              "RelativeToolTip": "FUMiniHotelManagement.BLL\\Services\\IRoomService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-13T19:42:37.673Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "RoomService.cs",
+              "DocumentMoniker": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement.BLL\\Services\\RoomService.cs",
+              "RelativeDocumentMoniker": "FUMiniHotelManagement.BLL\\Services\\RoomService.cs",
+              "ToolTip": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement.BLL\\Services\\RoomService.cs",
+              "RelativeToolTip": "FUMiniHotelManagement.BLL\\Services\\RoomService.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAUwCQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-13T19:17:15.673Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "CustomerViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement\\ViewModel\\CustomerViewModel.cs",
+              "RelativeDocumentMoniker": "FUMiniHotelManagement\\ViewModel\\CustomerViewModel.cs",
+              "ToolTip": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement\\ViewModel\\CustomerViewModel.cs",
+              "RelativeToolTip": "FUMiniHotelManagement\\ViewModel\\CustomerViewModel.cs",
+              "ViewState": "AgIAAGwAAAAAAAAAAAAmwIAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-13T19:27:23.763Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "LoginWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement\\LoginWindow.xaml.cs",
+              "RelativeDocumentMoniker": "FUMiniHotelManagement\\LoginWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement\\LoginWindow.xaml.cs",
+              "RelativeToolTip": "FUMiniHotelManagement\\LoginWindow.xaml.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAmwCgAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-14T01:39:20.405Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "LoginViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement\\ViewModel\\LoginViewModel.cs",
+              "RelativeDocumentMoniker": "FUMiniHotelManagement\\ViewModel\\LoginViewModel.cs",
+              "ToolTip": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement\\ViewModel\\LoginViewModel.cs",
+              "RelativeToolTip": "FUMiniHotelManagement\\ViewModel\\LoginViewModel.cs",
+              "ViewState": "AgIAAEwAAAAAAAAAAAAqwGEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-13T19:43:38.563Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "RoomViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement\\ViewModel\\RoomViewModel.cs",
+              "RelativeDocumentMoniker": "FUMiniHotelManagement\\ViewModel\\RoomViewModel.cs",
+              "ToolTip": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement\\ViewModel\\RoomViewModel.cs",
+              "RelativeToolTip": "FUMiniHotelManagement\\ViewModel\\RoomViewModel.cs",
+              "ViewState": "AgIAADwAAAAAAAAAAAAiwFEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-13T18:38:09.692Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "RoomRepository.cs",
+              "DocumentMoniker": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement.DAL\\Repositories\\RoomRepository.cs",
+              "RelativeDocumentMoniker": "FUMiniHotelManagement.DAL\\Repositories\\RoomRepository.cs",
+              "ToolTip": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement.DAL\\Repositories\\RoomRepository.cs",
+              "RelativeToolTip": "FUMiniHotelManagement.DAL\\Repositories\\RoomRepository.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAkwDQAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-13T19:15:58.274Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
