@@ -53,7 +53,7 @@ namespace FUMiniHotelManagement.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/FUMiniHotelManagement;V1.0.0.0;component/views/customerprofileview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/FUMiniHotelManagement;component/views/customerprofileview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Views\CustomerProfileView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

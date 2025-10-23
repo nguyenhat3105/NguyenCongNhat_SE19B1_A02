@@ -5,42 +5,50 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:helpers="clr-namespace:FUMiniHotelManagement.Helper"
         mc:Ignorable="d"
-        Title="Đăng nhập hệ thống" 
-        Height="480" Width="420"
+        Title="Đăng nhập hệ thống"
+        Height="520" Width="920"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
-        Background="Orange"
+        Background="#FFF7F5F2"
         FontFamily="Segoe UI">
 
     <Window.Resources>
         <helpers:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
 
-        <SolidColorBrush x:Key="PrimaryBrush" Color="#FF7F3F"/>
+        <!-- Palette -->
+        <SolidColorBrush x:Key="PrimaryOrangeBrush" Color="#FF7F3F"/>
         <SolidColorBrush x:Key="PrimaryHoverBrush" Color="#FF9A5A"/>
         <SolidColorBrush x:Key="PrimaryPressedBrush" Color="#E56A2F"/>
+        <SolidColorBrush x:Key="AccentOrangeBrush" Color="#FF8C00"/>
         <SolidColorBrush x:Key="TextPrimaryBrush" Color="#222222"/>
         <SolidColorBrush x:Key="TextSecondaryBrush" Color="#666666"/>
-        <SolidColorBrush x:Key="BorderBrush" Color="#DDDDDD"/>
+        <SolidColorBrush x:Key="CardBackground" Color="White"/>
+        <SolidColorBrush x:Key="SurfaceBrush" Color="#FFFDF7F2"/>
+        <SolidColorBrush x:Key="BorderBrushColor" Color="#E6E6E6"/>
         <SolidColorBrush x:Key="BorderFocusedBrush" Color="#FF7F3F"/>
 
+        <!-- Reusable control base style -->
         <Style x:Key="InputControlBaseStyle" TargetType="Control">
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Padding" Value="10,8"/>
-            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrushColor}"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Background" Value="White"/>
+            <Setter Property="Background" Value="#FFF7F7F7"/>
             <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Control">
-                        <Border x:Name="border" 
-                                BorderBrush="{TemplateBinding BorderBrush}" 
-                                BorderThickness="{TemplateBinding BorderThickness}" 
-                                Background="{TemplateBinding Background}" 
-                                SnapsToDevicePixels="True"
-                                CornerRadius="8">
-                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        <Border x:Name="border"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="8"
+                                SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          Focusable="false"
+                                          HorizontalScrollBarVisibility="Hidden"
+                                          VerticalScrollBarVisibility="Hidden"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
@@ -50,7 +58,7 @@
                                 <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource BorderFocusedBrush}"/>
                                 <Setter TargetName="border" Property="Effect">
                                     <Setter.Value>
-                                        <DropShadowEffect ShadowDepth="0" BlurRadius="6" Opacity="0.4"/>
+                                        <DropShadowEffect ShadowDepth="0" BlurRadius="8" Opacity="0.15"/>
                                     </Setter.Value>
                                 </Setter>
                             </Trigger>
@@ -61,11 +69,10 @@
         </Style>
 
         <Style TargetType="TextBox" BasedOn="{StaticResource InputControlBaseStyle}"/>
-
         <Style TargetType="PasswordBox" BasedOn="{StaticResource InputControlBaseStyle}"/>
 
         <Style TargetType="Button">
-            <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
+            <Setter Property="Background" Value="{StaticResource PrimaryOrangeBrush}"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="FontSize" Value="15"/>
@@ -78,7 +85,8 @@
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="border"
                                 Background="{TemplateBinding Background}"
-                                CornerRadius="8">
+                                CornerRadius="10"
+                                Padding="{TemplateBinding Padding}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -96,67 +104,108 @@
 
         <Style x:Key="PlaceholderTextStyle" TargetType="TextBlock">
             <Setter Property="Foreground" Value="#AAAAAA"/>
-            <Setter Property="Margin" Value="12,8,0,0"/>
+            <Setter Property="Margin" Value="14,8,0,0"/>
             <Setter Property="IsHitTestVisible" Value="False"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
+
     </Window.Resources>
 
-    <Border Background="White"
-            CornerRadius="12"
-            Padding="35"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center"
-            Width="360">
-        <Border.Effect>
-            <DropShadowEffect Color="#000000" Direction="270" ShadowDepth="3" BlurRadius="15" Opacity="0.1"/>
-        </Border.Effect>
+    <!-- Outer container - centered rectangle -->
+    <Grid>
+        <Border CornerRadius="18"
+                Background="{StaticResource CardBackground}"
+                Padding="0"
+                Width="860"
+                Height="420"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+            <Border.Effect>
+                <DropShadowEffect Color="#000000" Direction="270" ShadowDepth="4" BlurRadius="18" Opacity="0.12"/>
+            </Border.Effect>
 
-        <StackPanel>
-            <StackPanel HorizontalAlignment="Center" Margin="0,0,0,25">
-                <Path Data="M12 5.69l5 4.5V18h-2v-6H9v6H7v-7.81l5-4.5M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z" Fill="{StaticResource PrimaryBrush}" Stretch="Uniform" Width="36" Height="36"/>
-                <TextBlock Text="MiniHotel"
-                           FontSize="26"
-                           FontWeight="Bold"
-                           Foreground="{StaticResource PrimaryBrush}"
-                           HorizontalAlignment="Center"
-                           Margin="0,10,0,5"/>
-                <TextBlock Text="Đăng nhập hệ thống quản lý"
-                           FontSize="14"
-                           Foreground="{StaticResource TextSecondaryBrush}"
-                           HorizontalAlignment="Center"/>
-            </StackPanel>
+            <!-- Main layout: 2 columns (Left: image/icon, Right: form) -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.45*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
 
-            <StackPanel>
-                <TextBlock Text="Email" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,6"/>
-                <Grid>
-                    <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" Name="EmailBox"/>
-                    <TextBlock Text="Nhập email của bạn" Style="{StaticResource PlaceholderTextStyle}"
-                               Visibility="{Binding Text, ElementName=EmailBox, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                <!-- LEFT: Illustration area -->
+                <Grid Grid.Column="0" Background="#FFF8F3EE" ClipToBounds="True">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Replace Image Source with your asset; kept center & padded -->
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="30">
+                        <Image Source="pack://application:,,,/Images/login-illustration.png"
+                               Width="320"
+                               Height="240"
+                               Stretch="Uniform"
+                               Margin="0,0,0,12"/>
+                        <TextBlock Text="Welcome to MiniHotel"
+                                   FontSize="22"
+                                   FontWeight="Bold"
+                                   Foreground="{StaticResource PrimaryOrangeBrush}"
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock Text="Manage bookings, customers and rooms quickly."
+                                   FontSize="13"
+                                   Foreground="{StaticResource TextSecondaryBrush}"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,6,0,0"/>
+                    </StackPanel>
+
                 </Grid>
 
-                <TextBlock Text="Mật khẩu" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,15,0,6"/>
-                <PasswordBox x:Name="PasswordBox"/>
+                <!-- RIGHT: Login form -->
+                <Grid Grid.Column="1" Margin="28">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                <Button Content="Đăng nhập"
-                        Height="25"
-                        Command="{Binding LoginCommand}"
-                        Margin="0,25,0,0"/>
+                    <!-- Header small -->
+                    <StackPanel Grid.Row="0" Margin="0,8,0,18">
+                        <TextBlock Text="Đăng nhập hệ thống" FontSize="18" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}"/>
+                        <TextBlock Text="Đăng nhập để quản lý MiniHotel" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,6,0,0"/>
+                    </StackPanel>
 
-                <ProgressBar Height="5"
-                             Margin="0,15,0,0"
-                             IsIndeterminate="True"
-                             Foreground="{StaticResource PrimaryBrush}"
-                             Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}}"
-                             Background="Transparent"/>
-            </StackPanel>
+                    <!-- Form card -->
+                    <Border Grid.Row="1" Background="{StaticResource SurfaceBrush}" CornerRadius="12" Padding="18">
+                        <StackPanel>
 
-            <TextBlock Text="© 2025 MiniHotel Management"
-                       Foreground="#BBBBBB"
-                       FontSize="11"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Bottom"
-                       Margin="0,30,0,0"/>
-        </StackPanel>
-    </Border>
+                            <!-- Email -->
+                            <TextBlock Text="Email" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,6"/>
+                            <Grid>
+                                <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" Name="EmailBox" Height="36"/>
+                                <TextBlock Text="Nhập email của bạn" Style="{StaticResource PlaceholderTextStyle}"
+                                           Visibility="{Binding Text, ElementName=EmailBox, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                            </Grid>
+
+                            <!-- Password -->
+                            <TextBlock Text="Mật khẩu" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,12,0,6"/>
+                            <PasswordBox x:Name="PasswordBox" Height="36" />
+
+                            <!-- Login button -->
+                            <Button Content="Đăng nhập"
+                                    Height="44"
+                                    Command="{Binding LoginCommand}"
+                                    Margin="0,18,0,0"/>
+
+                            <!-- Progress indicator -->
+                            <ProgressBar Height="6"
+                                         Margin="0,14,0,0"
+                                         IsIndeterminate="True"
+                                         Foreground="{StaticResource PrimaryOrangeBrush}"
+                                         Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}}"/>
+
+                            <!-- Extra small footer -->
+                            
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
 </Window>
