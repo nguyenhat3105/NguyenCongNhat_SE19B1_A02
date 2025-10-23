@@ -52,7 +52,7 @@ namespace FUMiniHotelManagement.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/FUMiniHotelManagement;component/views/bookingcreatewindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/FUMiniHotelManagement;V1.0.0.0;component/views/bookingcreatewindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Views\BookingCreateWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

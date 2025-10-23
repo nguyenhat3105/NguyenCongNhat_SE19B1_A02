@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "/Ja+0SZJ7ac=",
+  "dgSpecHash": "iWuMXuHsv7s=",
   "success": true,
-  "projectFilePath": "C:\\Users\\CONG NHAT\\OneDrive\\Desktop\\C#\\Session3-OOP\\Assignment\\FUMiniHotelManagement\\FUMiniHotelManagement.csproj",
+  "projectFilePath": "C:\\Users\\CONG NHAT\\Source\\Repos\\NguyenCongNhat_SE19B1_A02\\FUMiniHotelManagement\\FUMiniHotelManagement.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\CONG NHAT\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\CONG NHAT\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

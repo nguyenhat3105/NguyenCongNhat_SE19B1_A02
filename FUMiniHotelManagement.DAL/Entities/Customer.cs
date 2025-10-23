@@ -19,5 +19,26 @@ public partial class Customer
 
     public string? Password { get; set; }
 
+    public int Role { get; set; }
+
     public virtual ICollection<BookingReservation> BookingReservations { get; set; } = new List<BookingReservation>();
+
+
+    // Phương thức tạo bản sao nông (Shallow Copy)
+    public Customer Clone()
+    {
+        return new Customer
+        {
+            CustomerId = this.CustomerId,
+            CustomerFullName = this.CustomerFullName,
+            Telephone = this.Telephone,
+            EmailAddress = this.EmailAddress,
+            CustomerBirthday = this.CustomerBirthday,
+            CustomerStatus = this.CustomerStatus,
+            Password = this.Password, // Rất quan trọng: Copy Password
+            Role = this.Role,
+            // KHÔNG copy BookingReservations để tránh lặp vô hạn và lỗi
+            BookingReservations = new List<BookingReservation>()
+        };
+    }
 }

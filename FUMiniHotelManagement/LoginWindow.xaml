@@ -137,25 +137,30 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <!-- Replace Image Source with your asset; kept center & padded -->
-                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="30">
-                        <Image Source="pack://application:,,,/Images/login-illustration.png"
-                               Width="320"
-                               Height="240"
-                               Stretch="Uniform"
-                               Margin="0,0,0,12"/>
-                        <TextBlock Text="Welcome to MiniHotel"
-                                   FontSize="22"
-                                   FontWeight="Bold"
-                                   Foreground="{StaticResource PrimaryOrangeBrush}"
-                                   HorizontalAlignment="Center"/>
-                        <TextBlock Text="Manage bookings, customers and rooms quickly."
-                                   FontSize="13"
-                                   Foreground="{StaticResource TextSecondaryBrush}"
-                                   HorizontalAlignment="Center"
-                                   Margin="0,6,0,0"/>
-                    </StackPanel>
+                    <!-- Image background with soft rounded corners -->
+                    <Border CornerRadius="12" Margin="20" Background="#00FFFFFF" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <Grid>
+                            
+                            
 
+                            <!-- soft white overlay on left to create contrast with text -->
+                            <Rectangle Fill="#FFFFFF" Opacity="0.12" />
+
+                            <!-- Centered caption -->
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="24" >
+                                <TextBlock Text="Welcome to MiniHotel"
+                           FontSize="22"
+                           FontWeight="Bold"
+                           Foreground="{StaticResource PrimaryOrangeBrush}"
+                           HorizontalAlignment="Center" />
+                                <TextBlock Text="Manage bookings, customers and rooms quickly."
+                           FontSize="13"
+                           Foreground="{StaticResource TextSecondaryBrush}"
+                           HorizontalAlignment="Center"
+                           Margin="0,6,0,18"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
                 </Grid>
 
                 <!-- RIGHT: Login form -->

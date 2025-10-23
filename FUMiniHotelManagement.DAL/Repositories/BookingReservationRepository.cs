@@ -1,5 +1,5 @@
-﻿using FUMiniHotelManagement.DAL.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using FUMiniHotelManagement.DAL.DAO;
+using FUMiniHotelManagement.DAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,19 +7,19 @@ using System.Linq;
 
 namespace FUMiniHotelManagement.DAL.Repositories
 {
-    public class BookingReservationRepository: IBookingReservationRepository
+    public class BookingReservationRepository : IBookingReservationRepository
     {
-        private readonly FuminiHotelManagementContext _context;
+        // ❌ Đã loại bỏ: private readonly FuminiHotelManagementContext _context;
 
-        public BookingReservationRepository(FuminiHotelManagementContext context)
+        // Constructor không còn cần thiết cho EF Core
+        public BookingReservationRepository()
         {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
+            // Logic khởi tạo (nếu có) sẽ được đặt ở đây.
         }
 
-        // --- Các phương thức khác (GetAvailableRooms, GetReservationsByCustomer, v.v.) không cần sửa ---
-
-        // using Microsoft.EntityFrameworkCore; // Đảm bảo đã có using này ở đầu file
-
+        /// <summary>
+        /// Lấy danh sách phòng còn trống trong khoảng thời gian.
+        /// </summary>
         public IEnumerable<RoomInformation> GetAvailableRooms(DateOnly start, DateOnly end)
         {
             if (end <= start)
@@ -27,29 +27,22 @@ namespace FUMiniHotelManagement.DAL.Repositories
                 return Enumerable.Empty<RoomInformation>();
             }
 
-            // 🔥 SỬA LỖI: Dùng JOIN tường minh để đảm bảo lọc được theo BookingStatus
-            var bookedRoomIds = _context.BookingDetails
-                .AsNoTracking()
-                .Join( // Join với bảng BookingReservations
-                    _context.BookingReservations.AsNoTracking(),
-                    detail => detail.BookingReservationId,      // Khóa từ BookingDetail
-                    reservation => reservation.BookingReservationId, // Khóa từ BookingReservation
-                    (detail, reservation) => new { detail, reservation } // Tạo ra một đối tượng kết quả tạm thời
-                )
-                // 1. Lọc theo trạng thái của đơn đặt phòng (CHỈ LẤY ĐƠN HOẠT ĐỘNG)
-                .Where(joinedResult => joinedResult.reservation.BookingStatus != 0)
-                // 2. Lọc theo khoảng thời gian chồng chéo
-                .Where(joinedResult => joinedResult.detail.StartDate < end && joinedResult.detail.EndDate > start)
-                // 3. Lấy ra ID phòng
-                .Select(joinedResult => joinedResult.detail.RoomId)
+            // 1. Lấy tất cả chi tiết đặt phòng đang hoạt động (BookingStatus = 1)
+            var activeBookingDetails = BookingDAO.GetActiveBookingDetails();
+
+            // 2. Lọc ra ID của các phòng đã bị đặt trong khoảng thời gian yêu cầu
+            var bookedRoomIds = activeBookingDetails
+                .Where(d => d.StartDate < end && d.EndDate > start) // Logic chồng chéo thời gian
+                .Select(d => d.RoomId)
                 .Distinct()
                 .ToList();
 
-            // Logic lấy phòng trống không thay đổi: Lấy tất cả phòng trừ đi những phòng đã bị đặt
-            var availableRooms = _context.RoomInformations
-                .AsNoTracking()
+            // 3. Lấy tất cả phòng và loại trừ các phòng đã bị đặt.
+            // RoomDAO.GetAll() đã tự động "Include" RoomType.
+            var allRooms = RoomDAO.GetAll();
+
+            var availableRooms = allRooms
                 .Where(r => !bookedRoomIds.Contains(r.RoomId))
-                .Include(r => r.RoomType)
                 .ToList();
 
             return availableRooms;
@@ -62,10 +55,8 @@ namespace FUMiniHotelManagement.DAL.Repositories
         {
             if (rooms == null) throw new ArgumentNullException(nameof(rooms));
 
-            Debug.WriteLine("[CreateReservation] start");
-
-            // Validate customer exists (read-only check)
-            var customer = _context.Customers.AsNoTracking().FirstOrDefault(c => c.CustomerId == customerId);
+            // 1. Validate customer exists (sử dụng DAO)
+            var customer = CustomerDAO.GetById(customerId);
             if (customer == null)
                 throw new InvalidOperationException("Customer not found.");
 
@@ -73,35 +64,24 @@ namespace FUMiniHotelManagement.DAL.Repositories
             if (!roomRequests.Any())
                 throw new ArgumentException("Rooms cannot be null or empty.", nameof(rooms));
 
-            // Normalize requested ids and date range
             var requestedRoomIds = roomRequests.Select(r => r.roomId).Distinct().ToArray();
             var minStart = roomRequests.Min(r => r.start);
             var maxEnd = roomRequests.Max(r => r.end);
 
-            // Basic date validation (each request)
             foreach (var r in roomRequests)
             {
-                if (r.end < r.start)
-                    throw new ArgumentException($"End date {r.end} is before start date {r.start} for room {r.roomId}.");
+                if (r.end <= r.start) // Đã sửa lỗi: End date phải lớn hơn Start date
+                    throw new ArgumentException($"End date {r.end} must be after start date {r.start} for room {r.roomId}.");
             }
 
             // --- CHECK CONFLICTS ---
-            // Only consider BookingDetails that belong to active reservations (BookingStatus == 1)
-            var potentialConflicts = _context.BookingDetails
-                .AsNoTracking()
-                .Join(
-                    _context.BookingReservations.AsNoTracking(),
-                    detail => detail.BookingReservationId,
-                    reservation => reservation.BookingReservationId,
-                    (detail, reservation) => new { detail, reservation }
+            // Lấy tất cả chi tiết đặt phòng đang hoạt động (BookingDAO xử lý lọc theo BookingStatus)
+            var potentialConflicts = BookingDAO.GetActiveBookingDetails()
+                .Where(d =>
+                    requestedRoomIds.Contains(d.RoomId)
+                    && d.StartDate < maxEnd
+                    && d.EndDate > minStart
                 )
-                .Where(x =>
-                    requestedRoomIds.Contains(x.detail.RoomId)
-                    && x.reservation.BookingStatus == 1           // <-- only active reservations
-                    && x.detail.StartDate < maxEnd
-                    && x.detail.EndDate > minStart
-                )
-                .Select(x => x.detail)
                 .ToList();
 
             // Check per requested room/date range
@@ -115,13 +95,6 @@ namespace FUMiniHotelManagement.DAL.Repositories
 
                 if (overlaps)
                 {
-                    // Optional: detailed debug output for conflicts
-                    Debug.WriteLine($"[CreateReservation] Conflict detected for room {req.roomId} ({req.start} - {req.end}). Conflicting records:");
-                    foreach (var d in potentialConflicts.Where(d => d.RoomId == req.roomId))
-                    {
-                        Debug.WriteLine($"   bookingDetail: resId={d.BookingReservationId}, start={d.StartDate}, end={d.EndDate}");
-                    }
-
                     throw new InvalidOperationException($"Room {req.roomId} is not available for {req.start} - {req.end}.");
                 }
             }
@@ -137,18 +110,15 @@ namespace FUMiniHotelManagement.DAL.Repositories
 
             decimal total = 0m;
 
-            // Load room info for price calculation
-            var roomsInfo = _context.RoomInformations
-                .AsNoTracking()
-                .Where(r => requestedRoomIds.Contains(r.RoomId))
-                .ToDictionary(r => r.RoomId);
+            // Load room info for price calculation (sử dụng RoomDAO)
+            var roomsInfo = requestedRoomIds.ToDictionary(id => id, id => RoomDAO.GetById(id));
+            if (roomsInfo.Any(kvp => kvp.Value == null))
+                throw new InvalidOperationException($"One or more rooms requested were not found.");
 
             foreach (var req in roomRequests)
             {
-                if (!roomsInfo.TryGetValue(req.roomId, out var roomInfo))
-                    throw new InvalidOperationException($"Room with id {req.roomId} not found.");
+                var roomInfo = roomsInfo[req.roomId]!;
 
-                // nights calculation: difference in days; if zero or negative, use 1
                 int nights = (req.end.DayNumber - req.start.DayNumber);
                 if (nights <= 0) nights = 1;
 
@@ -166,17 +136,13 @@ namespace FUMiniHotelManagement.DAL.Repositories
 
             reservation.TotalPrice = total;
 
-            // Persist (EF Core will insert reservation and details in one SaveChanges)
+            // Persist (Sử dụng BookingDAO.Add)
             try
             {
-                _context.BookingReservations.Add(reservation);
-                _context.SaveChanges();
-
-                Debug.WriteLine($"[CreateReservation] Saved reservation id={reservation.BookingReservationId}, total={reservation.TotalPrice}");
+                BookingDAO.Add(reservation);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Debug.WriteLine("[CreateReservation] SaveChanges failed: " + (ex.InnerException?.Message ?? ex.Message));
                 throw;
             }
 
@@ -184,63 +150,49 @@ namespace FUMiniHotelManagement.DAL.Repositories
         }
 
 
-        // --- Các phương thức khác ---
-
+        /// <summary>
+        /// Lấy tất cả đơn đặt phòng của một khách hàng.
+        /// </summary>
         public IEnumerable<BookingReservation> GetReservationsByCustomer(int customerId)
         {
-            return _context.BookingReservations
-                .AsNoTracking()
-                .Include(r => r.Customer)
-                .Include(r => r.BookingDetails)
-                .ThenInclude(bd => bd.Room)
+            // BookingDAO.GetAll() đã tự động "Include" tất cả các mối quan hệ cần thiết
+            return BookingDAO.GetAll()
                 .Where(r => r.CustomerId == customerId)
                 .ToList();
         }
 
+        /// <summary>
+        /// Lấy tất cả đơn đặt phòng đang hoạt động có chi tiết nằm trong khoảng thời gian.
+        /// </summary>
         public IEnumerable<BookingReservation> GetReservationsBetween(DateOnly start, DateOnly end)
         {
             if (end < start) throw new ArgumentException("End date must be >= start date.");
 
-            // Debug
-            System.Diagnostics.Debug.WriteLine($"[Repo] GetReservationsBetween: {start} - {end}");
-
-            var result = _context.BookingReservations
-                .AsNoTracking()
-                .Include(r => r.Customer)
-                .Include(r => r.BookingDetails)
-                    .ThenInclude(bd => bd.Room)
+            return BookingDAO.GetAll()
                 .Where(r => r.BookingStatus == 1
                             && r.BookingDetails.Any(d => d.StartDate < end && d.EndDate > start))
                 .ToList();
-
-            System.Diagnostics.Debug.WriteLine("[Repo] returned reservations:");
-            foreach (var rr in result)
-            {
-                System.Diagnostics.Debug.WriteLine($"  id={rr.BookingReservationId}, status={rr.BookingStatus}");
-            }
-
-            return result;
         }
 
-
-
-
+        /// <summary>
+        /// Hủy đơn đặt phòng (Xóa mềm - set status = 0).
+        /// </summary>
         public void CancelReservation(int reservationId)
         {
-            var r = _context.BookingReservations.Find(reservationId);
+            var r = BookingDAO.GetById(reservationId);
             if (r == null) throw new InvalidOperationException("Reservation not found.");
-            r.BookingStatus = 0;
-            _context.SaveChanges();
 
-            _context.Entry(r).State = EntityState.Detached; // ✅ giải phóng khỏi tracking
+            // ✅ Map sang DAO
+            BookingDAO.Cancel(reservationId);
         }
 
-
+        /// <summary>
+        /// Lấy thông tin phòng theo ID.
+        /// </summary>
         public RoomInformation? GetRoomByID(int roomId)
         {
-            return _context.RoomInformations
-                .AsNoTracking()
-                .FirstOrDefault(r => r.RoomId == roomId);
+            // ✅ Map sang DAO
+            return RoomDAO.GetById(roomId);
         }
     }
 }

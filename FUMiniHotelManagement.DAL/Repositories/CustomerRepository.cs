@@ -1,4 +1,5 @@
-﻿using FUMiniHotelManagement.DAL.Entities;
+﻿using FUMiniHotelManagement.DAL.DAO;
+using FUMiniHotelManagement.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,120 +11,56 @@ namespace FUMiniHotelManagement.DAL.Repositories
 {
     public class CustomerRepository : ICustomerRepository
     {
-       
-        //public CustomerRepository(FuminiHotelManagementContext context)
-        //{
-        //    var _context = new FuminiHotelManagementContext();
-        //    _context = context ?? throw new ArgumentNullException(nameof(context));
-
-        //    //Gán giá trị của tham số context cho trường _context. Nhưng trước đó, nếu tham số context là null, thì hãy ném ra một ngoại lệ ArgumentNullException để báo hiệu rằng tham số context không được phép là null
-        //}
+      
 
         public CustomerRepository() { }
 
         public Customer? GetByEmail(string email)
         {
-            var _context = new FuminiHotelManagementContext();
-            return _context.Customers.FirstOrDefault(c => c.EmailAddress == email);
+            return CustomerDAO.GetByEmail(email);
         }
         public void Add(Customer customer)
         {
-            var _context = new FuminiHotelManagementContext();
             if (customer == null)
             {
                 throw new ArgumentNullException(nameof(customer));
             }
-            _context.Customers.Add(customer);
-            _context.SaveChanges();
+            // ✅ Map sang DAO (DAO tự xử lý gán ID và lưu)
+            CustomerDAO.Add(customer);
         }
         public void Delete(int customerId)
         {
-            var _context = new FuminiHotelManagementContext();
-            var customer = _context.Customers.Find(customerId);
-            if (customer != null)
-            {
-                _context.Customers.Remove(customer);
-                _context.SaveChanges();
-            }
+            CustomerDAO.Delete(customerId);
         }
 
         public void Update(Customer customer)
         {
-            var _context = new FuminiHotelManagementContext();
             if (customer == null)
             {
                 throw new ArgumentNullException(nameof(customer));
             }
 
-            var existingCustomer = _context.Customers.FirstOrDefault(c => c.CustomerId == customer.CustomerId);
+            // Kiểm tra sự tồn tại (chuyển logic kiểm tra sang Repository hoặc sử dụng DAO.GetById)
+            var existingCustomer = CustomerDAO.GetById(customer.CustomerId);
             if (existingCustomer == null)
             {
                 throw new InvalidOperationException("Không tìm thấy khách hàng để cập nhật");
             }
 
-            // Cập nhật từng thuộc tính
-            existingCustomer.CustomerFullName = customer.CustomerFullName;
-            existingCustomer.Telephone = customer.Telephone;
-            existingCustomer.EmailAddress = customer.EmailAddress;
-            existingCustomer.CustomerBirthday = customer.CustomerBirthday;
-            existingCustomer.CustomerStatus = customer.CustomerStatus;
-            existingCustomer.Password = customer.Password;
-
-            _context.SaveChanges();
+            // ✅ Map sang DAO (DAO tự xử lý cập nhật các thuộc tính)
+            CustomerDAO.Update(customer);
         }
         public Customer? GetById(int customerId)
         {
-            var _context = new FuminiHotelManagementContext();
-            return _context.Customers.Find(customerId);
+            return CustomerDAO.GetById(customerId);
         }
         public IEnumerable<Customer> GetAll()
         {
-            var _context = new FuminiHotelManagementContext();
-            return _context.Customers.ToList();
+            return CustomerDAO.GetAll();
         }
     }
 }
 
 
 
-//public void Update(Customer customer)
-//{
-//    if (customer == null)
-//    {
-//        throw new ArgumentNullException(nameof(customer));
-//    }
 
-//    var existingCustomer = _context.Customers.FirstOrDefault(c => c.CustomerId == customer.CustomerId);
-//    if (existingCustomer == null)
-//    {
-//        throw new InvalidOperationException("Không tìm thấy khách hàng để cập nhật");
-//    }
-
-//    // Cập nhật từng thuộc tính
-//    existingCustomer.CustomerFullName = customer.CustomerFullName;
-//    existingCustomer.Telephone = customer.Telephone;
-//    existingCustomer.EmailAddress = customer.EmailAddress;
-//    existingCustomer.CustomerBirthday = customer.CustomerBirthday;
-//    existingCustomer.CustomerStatus = customer.CustomerStatus;
-//    existingCustomer.Password = customer.Password;
-
-//    _context.SaveChanges();
-//}
-
-
-
-
-
-
-
-//public void Delete(int id)
-//{
-//    var customer = _context.Customers.FirstOrDefault(c => c.CustomerId == id);
-//    if (customer == null)
-//    {
-//        throw new InvalidOperationException("Không tìm thấy khách hàng để xóa");
-//    }
-
-//    customer.CustomerStatus = 0;
-//    _context.SaveChanges();
-//}

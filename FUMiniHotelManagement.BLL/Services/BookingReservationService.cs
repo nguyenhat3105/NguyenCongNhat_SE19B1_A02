@@ -10,57 +10,36 @@
 
     namespace FUMiniHotelManagement.BLL.Services
     {
+        
         public class BookingReservationService : IBookingReservationService
         {
-            // 🔥 BỎ HẲN KHAI BÁO FIELD CẤP CLASS (private readonly IBookingReservationRepository iBookingRepo;
-            // và private readonly FuminiHotelManagementContext _context;)
 
-            public BookingReservationService()
-            {
-                // Constructor KHÔNG NÊN làm gì cả, không nên new Context ở đây.
-            }
+        private readonly BookingReservationRepository repo;
+        public BookingReservationService()
+        {
+           repo = new BookingReservationRepository();
+        }
 
-            // --- Sửa các hàm CRUD/Query để dùng Context riêng ---
+        public void CancelReservation(int reservationId)
+        {
+            repo.CancelReservation(reservationId);
+        }
 
-            public void CancelReservation(int reservationId)
-            {
-                // Tạo Context và Repo mới, đảm bảo Context được Dispose
-                using (var context = new FuminiHotelManagementContext())
-                {
-                    var repo = new BookingReservationRepository(context);
-                    repo.CancelReservation(reservationId);
-                }
-            }
+        public BookingReservation CreateReservation(int customerId, DateOnly bookingDate, IEnumerable<(int roomId, DateOnly start, DateOnly end)> rooms)
+        {
+            return repo.CreateReservation(customerId, bookingDate, rooms);
 
-            public BookingReservation CreateReservation(int customerId, DateOnly bookingDate, IEnumerable<(int roomId, DateOnly start, DateOnly end)> rooms)
-            {
-                // 🔥 TẠO CONTEXT MỚI VÀ REPOSITORY MỚI CHO MỖI GIAO DỊCH
-                using (var context = new FuminiHotelManagementContext())
-                {
-                    var repo = new BookingReservationRepository(context);
-                    return repo.CreateReservation(customerId, bookingDate, rooms);
-                }
-            }
+        }
 
-            public IEnumerable<RoomInformation> GetAvailableRooms(DateOnly start, DateOnly end)
-            {
-                // LƯU Ý: Chuyển giao hoàn toàn cho Repository, vì logic trong Repository đã được sửa và tối ưu hơn.
-                using (var context = new FuminiHotelManagementContext())
-                {
-                    var repo = new BookingReservationRepository(context);
-                    return repo.GetAvailableRooms(start, end);
-                }
-            }
+        public IEnumerable<RoomInformation> GetAvailableRooms(DateOnly start, DateOnly end)
+        {
+             return repo.GetAvailableRooms(start, end);
+        }
 
-            public IEnumerable<BookingReservation> GetReservationsBetween(DateOnly start, DateOnly end)
-            {
-                // Chuyển giao hoàn toàn cho Repository
-                using (var context = new FuminiHotelManagementContext())
-                {
-                    var repo = new BookingReservationRepository(context);
-                    return repo.GetReservationsBetween(start, end);
-                }
-            }
+        public IEnumerable<BookingReservation> GetReservationsBetween(DateOnly start, DateOnly end)
+        {
+            return repo.GetReservationsBetween(start, end);        
+        }
 
         public IEnumerable<BookingReservation> GetReservationsByCustomer(int customerId, DateOnly? start = null, DateOnly? end = null)
         {
@@ -72,13 +51,9 @@
 
 
         public RoomInformation? GetRoomByID(int roomId)
-            {
-                // Chuyển giao hoàn toàn cho Repository
-                using (var context = new FuminiHotelManagementContext())
-                {
-                    var repo = new BookingReservationRepository(context);
-                    return repo.GetRoomByID(roomId);
-                }
-            }
+        {
+             return repo.GetRoomByID(roomId);
+
         }
     }
+}

@@ -1,4 +1,5 @@
 ﻿// Path: /BLL/Services/AuthenticationService.cs
+using FUMiniHotelManagement.DAL.DAO;
 using FUMiniHotelManagement.DAL.Entities;
 using FUMiniHotelManagement.DAL.Repositories;
 using FUMiniHotelManagement.Helper;
@@ -18,14 +19,21 @@ namespace FUMiniHotelManagement.BLL.Services
         // VERY SIMPLE login: tìm theo email + so sánh password thô (bạn nên hash+salt ở production)
         public Customer? Login(string email, string password)
         {
-            var customer = _customerRepo.GetByEmail(email);
-            if (customer == null)
-                return null;
+            var originalCustomer = CustomerDAO.GetByEmail(email);
 
-            if (customer.Password != password)
+            if (originalCustomer == null || originalCustomer.CustomerStatus == 0)
+            {
                 return null;
+            }
 
-            return customer;
+            // 2. So sánh mật khẩu với đối tượng GỐC
+            if (originalCustomer.Password != password)
+            {
+                return null;
+            }
+
+            // 3. ✅ TRẢ VỀ BẢN SAO (CLONE)
+            return originalCustomer.Clone();
         }
 
 

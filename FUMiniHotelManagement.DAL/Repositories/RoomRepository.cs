@@ -1,4 +1,5 @@
-﻿using FUMiniHotelManagement.DAL.Entities;
+﻿using FUMiniHotelManagement.DAL.DAO;
+using FUMiniHotelManagement.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,54 +14,39 @@ namespace FUMiniHotelManagement.DAL.Repositories
         public RoomRepository() { }
         public IEnumerable<RoomInformation> GetAll()
         {
-            var context = new FuminiHotelManagementContext();
-            return context.RoomInformations
-               .Include(r => r.RoomType)
-               .ToList();
+            return RoomDAO.GetAll();
         }
 
         public RoomInformation? GetById(int roomId)
         {
-            var context = new FuminiHotelManagementContext();
-            return context.RoomInformations.Find(roomId);
+            return RoomDAO.GetById(roomId);
         }
 
         public void Update(RoomInformation room)
         {
-            var context = new FuminiHotelManagementContext();
             if (room == null)
             {
                 throw new ArgumentNullException(nameof(room));
             }
-            var existingRoom = context.RoomInformations.FirstOrDefault(r => r.RoomId == room.RoomId);
+
+            // Logic kiểm tra tồn tại (sử dụng DAO thay vì Context)
+            var existingRoom = RoomDAO.GetById(room.RoomId);
             if (existingRoom == null)
             {
                 throw new InvalidOperationException("Không tìm thấy phòng để cập nhật");
             }
-            // Cập nhật từng thuộc tính
-            existingRoom.RoomNumber = room.RoomNumber;
-            existingRoom.RoomPricePerDay = room.RoomPricePerDay;
-            existingRoom.RoomStatus = room.RoomStatus;
-            existingRoom.RoomMaxCapacity = room.RoomMaxCapacity;
-            existingRoom.RoomDetailDescription = room.RoomDetailDescription;
-            context.SaveChanges();
+
+            // ✅ Map sang DAO (DAO tự xử lý cập nhật các thuộc tính)
+            RoomDAO.Update(room);
         }
 
         public void Delete(RoomInformation roomInformation)
         {
-            var context = new FuminiHotelManagementContext();
-            var room = context.RoomInformations.Find(roomInformation.RoomId);
-            if (room != null)
-            {
-                context.RoomInformations.Remove(room);
-                context.SaveChanges();
-            }
+            RoomDAO.Delete(roomInformation.RoomId);
         }
         public void create(RoomInformation room)
         {
-            var context = new FuminiHotelManagementContext();
-            context.RoomInformations.Add(room);
-            context.SaveChanges();
+            RoomDAO.Create(room);
         }
     }
 }
