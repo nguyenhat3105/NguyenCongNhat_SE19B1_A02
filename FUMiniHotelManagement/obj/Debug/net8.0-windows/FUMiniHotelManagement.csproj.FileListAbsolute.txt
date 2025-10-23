@@ -165,3 +165,13 @@ C:\Users\CONG NHAT\OneDrive\Desktop\C#\Session3-OOP\Assignment\FUMiniHotelManage
 C:\Users\CONG NHAT\OneDrive\Desktop\C#\Session3-OOP\Assignment\FUMiniHotelManagement\obj\Debug\net8.0-windows\Views\RoomView.baml
 C:\Users\CONG NHAT\OneDrive\Desktop\C#\Session3-OOP\Assignment\FUMiniHotelManagement\obj\Debug\net8.0-windows\Views\CustomerView.g.cs
 C:\Users\CONG NHAT\OneDrive\Desktop\C#\Session3-OOP\Assignment\FUMiniHotelManagement\obj\Debug\net8.0-windows\Views\RoomView.g.cs
+C:\Users\CONG NHAT\OneDrive\Desktop\C#\Session3-OOP\Assignment\FUMiniHotelManagement\obj\Debug\net8.0-windows\Views\BookingReservationView.g.cs
+C:\Users\CONG NHAT\OneDrive\Desktop\C#\Session3-OOP\Assignment\FUMiniHotelManagement\obj\Debug\net8.0-windows\Views\BookingReservationView.baml
+C:\Users\CONG NHAT\OneDrive\Desktop\C#\Session3-OOP\Assignment\FUMiniHotelManagement\obj\Debug\net8.0-windows\Views\BookingCreateWindow.baml
+C:\Users\CONG NHAT\OneDrive\Desktop\C#\Session3-OOP\Assignment\FUMiniHotelManagement\obj\Debug\net8.0-windows\Views\BookingCreateWindow.g.cs
+C:\Users\CONG NHAT\OneDrive\Desktop\C#\Session3-OOP\Assignment\FUMiniHotelManagement\obj\Debug\net8.0-windows\Views\AvailableRoomsWindow.baml
+C:\Users\CONG NHAT\OneDrive\Desktop\C#\Session3-OOP\Assignment\FUMiniHotelManagement\obj\Debug\net8.0-windows\Views\AvailableRoomsWindow.g.cs
+C:\Users\CONG NHAT\OneDrive\Desktop\C#\Session3-OOP\Assignment\FUMiniHotelManagement\obj\Debug\net8.0-windows\Views\AddRoomDialog.baml
+C:\Users\CONG NHAT\OneDrive\Desktop\C#\Session3-OOP\Assignment\FUMiniHotelManagement\obj\Debug\net8.0-windows\Views\AddRoomDialog.g.cs
+C:\Users\CONG NHAT\OneDrive\Desktop\C#\Session3-OOP\Assignment\FUMiniHotelManagement\obj\Debug\net8.0-windows\Views\CustomerProfileView.baml
+C:\Users\CONG NHAT\OneDrive\Desktop\C#\Session3-OOP\Assignment\FUMiniHotelManagement\obj\Debug\net8.0-windows\Views\CustomerProfileView.g.cs

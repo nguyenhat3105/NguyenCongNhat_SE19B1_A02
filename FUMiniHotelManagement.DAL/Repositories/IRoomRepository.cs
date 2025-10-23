@@ -13,6 +13,8 @@ namespace FUMiniHotelManagement.DAL.Repositories
         RoomInformation? GetById(int roomId);
         void Update(RoomInformation room);
         void Delete(RoomInformation room);
+        void create(RoomInformation room);
+
 
 
     }

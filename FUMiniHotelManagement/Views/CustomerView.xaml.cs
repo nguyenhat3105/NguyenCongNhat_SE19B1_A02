@@ -25,5 +25,7 @@ namespace FUMiniHotelManagement.Views
             InitializeComponent();
             
         }
+
+
     }
 }

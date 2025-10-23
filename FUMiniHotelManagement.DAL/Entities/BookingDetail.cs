@@ -13,7 +13,7 @@ public partial class BookingDetail
 
     public DateOnly EndDate { get; set; }
 
-    public decimal? ActualPrice { get; set; }
+    public decimal ActualPrice { get; set; }
 
     public virtual BookingReservation BookingReservation { get; set; } = null!;
 

@@ -5,33 +5,147 @@
         xmlns:v="clr-namespace:FUMiniHotelManagement.Views"
         Title="Quản lý khách sạn mini"
         WindowStartupLocation="CenterScreen"
-        Width="1200" Height="700"
+        Width="1250" Height="750"
         MinWidth="1000" MinHeight="600"
-        Background="White">
+        Background="#FFFDFBFA">
 
     <Window.Resources>
+        <!-- 🔹 Ánh xạ ViewModel -> View -->
         <DataTemplate DataType="{x:Type vm:CustomerViewModel}">
             <v:CustomerView />
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:RoomViewModel}">
             <v:RoomView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:BookingReservationViewModel}">
+            <v:BookingReservationView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:CustomerProfileViewModel}">
+            <v:CustomerProfileView />
+        </DataTemplate>
+
+        <!-- 🔹 Hiệu ứng đổ bóng dùng chung -->
+        <DropShadowEffect x:Key="DropShadowEffect"
+                          BlurRadius="8"
+                          ShadowDepth="2"
+                          Opacity="0.3"
+                          Color="Gray"/>
+
+        <!-- 🔹 Style chung cho nút menu -->
+        <Style x:Key="MenuButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#FFA4511E"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Margin" Value="0 8 0 0"/>
+            <Setter Property="Padding" Value="10 6"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+
+            <!-- ❌ WPF Button không có CornerRadius, nên ta bọc Border có CornerRadius -->
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <!-- Hover -->
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FFCC6B2B"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
 
     <DockPanel>
-        <!-- Thanh menu trái -->
-        <StackPanel DockPanel.Dock="Left" Width="180" Background="#F0F0F0" Margin="10">
-            <TextBlock Text="BẢNG ĐIỀU KHIỂN" FontWeight="Bold" Margin="10"/>
-            <Button x:Name="btnKhachHang" Content="Khách hàng" Command="{Binding ShowCustomerViewCommand}" Margin="10"/>
-            <Button x:Name="btnPhong" Content="Phòng" Command="{Binding ShowRoomViewCommand}" Margin="10"/>
-        </StackPanel>
+        <!-- 🔸 Sidebar -->
+        <Border DockPanel.Dock="Left"
+                Width="210"
+                CornerRadius="16"
+                Margin="10"
+                Background="#FFF6E9E0"
+                Effect="{StaticResource DropShadowEffect}">
 
-        <!-- Khu vực hiển thị nội dung động -->
-        <Border Background="White" Padding="10" Margin="10">
-            <ContentControl x:Name="MainContent"
-                            Content="{Binding CurrentView}"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"/>
+            <StackPanel Margin="10 20">
+                <!-- Logo -->
+                <StackPanel Orientation="Horizontal" Margin="10" HorizontalAlignment="Center">
+                    
+                          
+                    <TextBlock Text="FUMiniHotel"
+                               VerticalAlignment="Center"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               Foreground="#FFA4511E"/>
+                </StackPanel>
+
+                <Separator Margin="10 10 10 20"
+                           Background="#FFD8B89B"
+                           Height="1"/>
+
+                <TextBlock Text="BẢNG ĐIỀU KHIỂN"
+                           FontWeight="Bold"
+                           Foreground="#FF7A431D"
+                           FontSize="14"
+                           Margin="10 0 10 15"
+                           HorizontalAlignment="Center"/>
+
+                <Button x:Name="btnKhachHang"
+                        Content="Khách hàng"
+                        Command="{Binding ShowCustomerViewCommand}"
+                        Style="{StaticResource MenuButtonStyle}"/>
+
+                <Button x:Name="btnPhong"
+                        Content="Phòng"
+                        Command="{Binding ShowRoomViewCommand}"
+                        Style="{StaticResource MenuButtonStyle}"/>
+
+                <Button x:Name="btnDatPhong"
+                        Content="Đặt phòng"
+                        Command="{Binding ShowBookingViewCommand}"
+                        Style="{StaticResource MenuButtonStyle}"/>
+
+                <Button x:Name="btnDangXuat"
+                        Content="Đăng xuất"
+                        Command="{Binding LogoutCommand}"
+                        Style="{StaticResource MenuButtonStyle}"/>
+
+            </StackPanel>
+        </Border>
+
+        <!-- 🔸 Khu vực nội dung chính -->
+        <Border Background="White"
+                CornerRadius="16"
+                Margin="10"
+                Padding="20"
+                Effect="{StaticResource DropShadowEffect}">
+            <DockPanel>
+                <!-- Header -->
+                <Border DockPanel.Dock="Top"
+                        Background="#FFFFF6F2"
+                        Padding="10 8"
+                        CornerRadius="10"
+                        Margin="0 0 0 10">
+                    <TextBlock Text="Hệ thống quản lý khách sạn mini"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               Foreground="#FFA4511E"
+                               HorizontalAlignment="Center"/>
+                </Border>
+
+                <!-- Nội dung động -->
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ContentControl x:Name="MainContent"
+                                    Content="{Binding CurrentView}"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"/>
+                </ScrollViewer>
+            </DockPanel>
         </Border>
     </DockPanel>
 </Window>

@@ -32,5 +32,9 @@ namespace FUMiniHotelManagement.BLL.Services
         {
             iRoomRepository.Delete(roomInformation);
         }
+        public void Create(RoomInformation roomInformation)
+        {
+            iRoomRepository.create(roomInformation);
+        }
     }
 }

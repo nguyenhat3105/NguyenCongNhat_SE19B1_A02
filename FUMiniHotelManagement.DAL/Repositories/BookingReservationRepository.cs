@@ -1,125 +1,246 @@
 ﻿using FUMiniHotelManagement.DAL.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FUMiniHotelManagement.DAL.Repositories
 {
     public class BookingReservationRepository: IBookingReservationRepository
     {
-        private readonly IBookingReservationRepository _repo;
-        private readonly ICustomerRepository _customerRepo;
-        private readonly IRoomRepository _roomRepo; // optional if you have one
-        private BookingReservationRepository bookingReservationRepository;
-        private CustomerRepository customerRepository;
+        private readonly FuminiHotelManagementContext _context;
 
-        public BookingReservationRepository() : this(new BookingReservationRepository(), new CustomerRepository()) { }
-
-        public BookingReservationRepository(IBookingReservationRepository repo, ICustomerRepository customerRepo)
+        public BookingReservationRepository(FuminiHotelManagementContext context)
         {
-            _repo = repo ?? throw new ArgumentNullException(nameof(repo));
-            _customerRepo = customerRepo ?? throw new ArgumentNullException(nameof(customerRepo));
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public BookingReservationRepository(BookingReservationRepository bookingReservationRepository, CustomerRepository customerRepository)
-        {
-            this.bookingReservationRepository = bookingReservationRepository;
-            this.customerRepository = customerRepository;
-        }
+        // --- Các phương thức khác (GetAvailableRooms, GetReservationsByCustomer, v.v.) không cần sửa ---
+
+        // using Microsoft.EntityFrameworkCore; // Đảm bảo đã có using này ở đầu file
 
         public IEnumerable<RoomInformation> GetAvailableRooms(DateOnly start, DateOnly end)
         {
-            return _repo.GetAvailableRooms(start, end);
+            if (end <= start)
+            {
+                return Enumerable.Empty<RoomInformation>();
+            }
+
+            // 🔥 SỬA LỖI: Dùng JOIN tường minh để đảm bảo lọc được theo BookingStatus
+            var bookedRoomIds = _context.BookingDetails
+                .AsNoTracking()
+                .Join( // Join với bảng BookingReservations
+                    _context.BookingReservations.AsNoTracking(),
+                    detail => detail.BookingReservationId,      // Khóa từ BookingDetail
+                    reservation => reservation.BookingReservationId, // Khóa từ BookingReservation
+                    (detail, reservation) => new { detail, reservation } // Tạo ra một đối tượng kết quả tạm thời
+                )
+                // 1. Lọc theo trạng thái của đơn đặt phòng (CHỈ LẤY ĐƠN HOẠT ĐỘNG)
+                .Where(joinedResult => joinedResult.reservation.BookingStatus != 0)
+                // 2. Lọc theo khoảng thời gian chồng chéo
+                .Where(joinedResult => joinedResult.detail.StartDate < end && joinedResult.detail.EndDate > start)
+                // 3. Lấy ra ID phòng
+                .Select(joinedResult => joinedResult.detail.RoomId)
+                .Distinct()
+                .ToList();
+
+            // Logic lấy phòng trống không thay đổi: Lấy tất cả phòng trừ đi những phòng đã bị đặt
+            var availableRooms = _context.RoomInformations
+                .AsNoTracking()
+                .Where(r => !bookedRoomIds.Contains(r.RoomId))
+                .Include(r => r.RoomType)
+                .ToList();
+
+            return availableRooms;
         }
 
-        // Create reservation with details; compute TotalPrice from room price * nights
-        public BookingReservationRepository CreateReservation(int customerId, DateOnly bookingDate, IEnumerable<(int roomId, DateOnly start, DateOnly end)> rooms)
+        /// <summary>
+        /// Tạo reservation kèm details.
+        /// </summary>
+        public BookingReservation CreateReservation(int customerId, DateOnly bookingDate, IEnumerable<(int roomId, DateOnly start, DateOnly end)> rooms)
         {
-            var customer = _customerRepo.GetById(customerId);
-            if (customer == null) throw new InvalidOperationException("Customer not found.");
+            if (rooms == null) throw new ArgumentNullException(nameof(rooms));
 
+            Debug.WriteLine("[CreateReservation] start");
+
+            // Validate customer exists (read-only check)
+            var customer = _context.Customers.AsNoTracking().FirstOrDefault(c => c.CustomerId == customerId);
+            if (customer == null)
+                throw new InvalidOperationException("Customer not found.");
+
+            var roomRequests = rooms.ToList();
+            if (!roomRequests.Any())
+                throw new ArgumentException("Rooms cannot be null or empty.", nameof(rooms));
+
+            // Normalize requested ids and date range
+            var requestedRoomIds = roomRequests.Select(r => r.roomId).Distinct().ToArray();
+            var minStart = roomRequests.Min(r => r.start);
+            var maxEnd = roomRequests.Max(r => r.end);
+
+            // Basic date validation (each request)
+            foreach (var r in roomRequests)
+            {
+                if (r.end < r.start)
+                    throw new ArgumentException($"End date {r.end} is before start date {r.start} for room {r.roomId}.");
+            }
+
+            // --- CHECK CONFLICTS ---
+            // Only consider BookingDetails that belong to active reservations (BookingStatus == 1)
+            var potentialConflicts = _context.BookingDetails
+                .AsNoTracking()
+                .Join(
+                    _context.BookingReservations.AsNoTracking(),
+                    detail => detail.BookingReservationId,
+                    reservation => reservation.BookingReservationId,
+                    (detail, reservation) => new { detail, reservation }
+                )
+                .Where(x =>
+                    requestedRoomIds.Contains(x.detail.RoomId)
+                    && x.reservation.BookingStatus == 1           // <-- only active reservations
+                    && x.detail.StartDate < maxEnd
+                    && x.detail.EndDate > minStart
+                )
+                .Select(x => x.detail)
+                .ToList();
+
+            // Check per requested room/date range
+            foreach (var req in roomRequests)
+            {
+                var overlaps = potentialConflicts.Any(d =>
+                    d.RoomId == req.roomId &&
+                    d.StartDate < req.end &&
+                    d.EndDate > req.start
+                );
+
+                if (overlaps)
+                {
+                    // Optional: detailed debug output for conflicts
+                    Debug.WriteLine($"[CreateReservation] Conflict detected for room {req.roomId} ({req.start} - {req.end}). Conflicting records:");
+                    foreach (var d in potentialConflicts.Where(d => d.RoomId == req.roomId))
+                    {
+                        Debug.WriteLine($"   bookingDetail: resId={d.BookingReservationId}, start={d.StartDate}, end={d.EndDate}");
+                    }
+
+                    throw new InvalidOperationException($"Room {req.roomId} is not available for {req.start} - {req.end}.");
+                }
+            }
+
+            // --- BUILD RESERVATION + DETAILS ---
             var reservation = new BookingReservation
             {
                 BookingDate = bookingDate,
                 CustomerId = customerId,
-                BookingStatus = 1
+                BookingStatus = 1,
+                BookingDetails = new List<BookingDetail>()
             };
 
-            // Add details
             decimal total = 0m;
-            foreach (var r in rooms)
+
+            // Load room info for price calculation
+            var roomsInfo = _context.RoomInformations
+                .AsNoTracking()
+                .Where(r => requestedRoomIds.Contains(r.RoomId))
+                .ToDictionary(r => r.RoomId);
+
+            foreach (var req in roomRequests)
             {
-                // get room info from DB context via repo (we used BookingRepository so access context)
-                var room = _repo is BookingReservationRepository br
-                    ? br.GetRoomByID(r.roomId) // we'll add this method below OR use context directly
-                    : null;
+                if (!roomsInfo.TryGetValue(req.roomId, out var roomInfo))
+                    throw new InvalidOperationException($"Room with id {req.roomId} not found.");
 
-                // fallback: try to get via customerRepo's context or throw if not available
-                if (room == null)
-                {
-                    // naive: create detail without price
-                    var detail = new BookingDetail
-                    {
-                        RoomId = r.roomId,
-                        StartDate = r.start,
-                        EndDate = r.end,
-                        ActualPrice = 0m
-                    };
-                    reservation.BookingDetails.Add(detail);
-                    continue;
-                }
-
-                // calculate nights = (end - start) in days (inclusive or exclusive? here treat as nights = (end - start).Days)
-                int nights = (r.end.ToDateTime(TimeOnly.MinValue) - r.start.ToDateTime(TimeOnly.MinValue)).Days;
+                // nights calculation: difference in days; if zero or negative, use 1
+                int nights = (req.end.DayNumber - req.start.DayNumber);
                 if (nights <= 0) nights = 1;
 
-                var detail2 = new BookingDetail
+                var detail = new BookingDetail
                 {
-                    RoomId = r.roomId,
-                    StartDate = r.start,
-                    EndDate = r.end,
-                    ActualPrice = room.RoomPricePerDay
+                    RoomId = req.roomId,
+                    StartDate = req.start,
+                    EndDate = req.end,
+                    ActualPrice = roomInfo.RoomPricePerDay
                 };
-                reservation.BookingDetails.Add(detail2);
-                total += room.RoomPricePerDay.GetValueOrDefault() * nights;
+
+                reservation.BookingDetails.Add(detail);
+                total += roomInfo.RoomPricePerDay * nights;
             }
 
             reservation.TotalPrice = total;
-            _repo.AddBooking(reservation);
 
-            // if repository implementation didn't auto-add details, add them now
-            foreach (var d in reservation.BookingDetails)
+            // Persist (EF Core will insert reservation and details in one SaveChanges)
+            try
             {
-                d.BookingReservationId = reservation.BookingReservationId;
-                _repo.AddBookingDetail(d);
+                _context.BookingReservations.Add(reservation);
+                _context.SaveChanges();
+
+                Debug.WriteLine($"[CreateReservation] Saved reservation id={reservation.BookingReservationId}, total={reservation.TotalPrice}");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("[CreateReservation] SaveChanges failed: " + (ex.InnerException?.Message ?? ex.Message));
+                throw;
             }
 
             return reservation;
         }
 
-        public IEnumerable<BookingReservationRepository> GetReservationsByCustomer(int customerId)
+
+        // --- Các phương thức khác ---
+
+        public IEnumerable<BookingReservation> GetReservationsByCustomer(int customerId)
         {
-            return _repo.GetByCustomerId(customerId);
+            return _context.BookingReservations
+                .AsNoTracking()
+                .Include(r => r.Customer)
+                .Include(r => r.BookingDetails)
+                .ThenInclude(bd => bd.Room)
+                .Where(r => r.CustomerId == customerId)
+                .ToList();
         }
 
-        public IEnumerable<BookingReservationRepository> GetReservationsBetween(DateOnly start, DateOnly end)
+        public IEnumerable<BookingReservation> GetReservationsBetween(DateOnly start, DateOnly end)
         {
-            return _repo.GetReservationsBetween(start, end);
+            if (end < start) throw new ArgumentException("End date must be >= start date.");
+
+            // Debug
+            System.Diagnostics.Debug.WriteLine($"[Repo] GetReservationsBetween: {start} - {end}");
+
+            var result = _context.BookingReservations
+                .AsNoTracking()
+                .Include(r => r.Customer)
+                .Include(r => r.BookingDetails)
+                    .ThenInclude(bd => bd.Room)
+                .Where(r => r.BookingStatus == 1
+                            && r.BookingDetails.Any(d => d.StartDate < end && d.EndDate > start))
+                .ToList();
+
+            System.Diagnostics.Debug.WriteLine("[Repo] returned reservations:");
+            foreach (var rr in result)
+            {
+                System.Diagnostics.Debug.WriteLine($"  id={rr.BookingReservationId}, status={rr.BookingStatus}");
+            }
+
+            return result;
         }
+
+
+
 
         public void CancelReservation(int reservationId)
         {
-            var r = _repo.GetById(reservationId);
+            var r = _context.BookingReservations.Find(reservationId);
             if (r == null) throw new InvalidOperationException("Reservation not found.");
-            r.BookingStatus = 0; // canceled
-            _repo.SaveChanges();
+            r.BookingStatus = 0;
+            _context.SaveChanges();
+
+            _context.Entry(r).State = EntityState.Detached; // ✅ giải phóng khỏi tracking
         }
+
 
         public RoomInformation? GetRoomByID(int roomId)
         {
-            return _roomRepo?.GetById(roomId);
+            return _context.RoomInformations
+                .AsNoTracking()
+                .FirstOrDefault(r => r.RoomId == roomId);
         }
     }
 }

@@ -1,19 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FUMiniHotelManagement.DAL.Entities;
 
 public partial class BookingReservation
 {
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int BookingReservationId { get; set; }
 
-    public DateOnly? BookingDate { get; set; }
+    public DateOnly BookingDate { get; set; }
 
-    public decimal? TotalPrice { get; set; }
+    public decimal TotalPrice { get; set; }
 
     public int CustomerId { get; set; }
 
-    public byte? BookingStatus { get; set; }
+    public byte BookingStatus { get; set; }
 
     public virtual ICollection<BookingDetail> BookingDetails { get; set; } = new List<BookingDetail>();
 

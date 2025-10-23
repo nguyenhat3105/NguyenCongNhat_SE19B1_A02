@@ -1,4 +1,5 @@
 ﻿using FUMiniHotelManagement.DAL.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,9 @@ namespace FUMiniHotelManagement.DAL.Repositories
         public IEnumerable<RoomInformation> GetAll()
         {
             var context = new FuminiHotelManagementContext();
-            return context.RoomInformations.ToList();
+            return context.RoomInformations
+               .Include(r => r.RoomType)
+               .ToList();
         }
 
         public RoomInformation? GetById(int roomId)
@@ -52,6 +55,12 @@ namespace FUMiniHotelManagement.DAL.Repositories
                 context.RoomInformations.Remove(room);
                 context.SaveChanges();
             }
+        }
+        public void create(RoomInformation room)
+        {
+            var context = new FuminiHotelManagementContext();
+            context.RoomInformations.Add(room);
+            context.SaveChanges();
         }
     }
 }

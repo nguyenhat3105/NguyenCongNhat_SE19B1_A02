@@ -1,4 +1,5 @@
 ﻿using FUMiniHotelManagement.BLL.Services;
+using FUMiniHotelManagement.DAL.Repositories;
 using FUMiniHotelManagement.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -25,15 +26,27 @@ namespace FUMiniHotelManagement
         {
             InitializeComponent();
 
+            var customerRepository = new CustomerRepository();
+
+            // 2. KHỞI TẠO TẦNG BLL (Services) với Repository
             var customerService = new CustomerService();
+
+            // SỬA LỖI CS1503: Truyền CustomerRepository vào AuthenticationService
+            var authService = new AuthenticationService(customerRepository);
+
             var roomService = new RoomService();
+            var bookingService = new BookingReservationService();
 
             var viewModel = new LoginViewModel(
                 customerService,
+                // THÊM: Truyền AuthenticationService vào vị trí thứ 2
+                authService,
+                // Truyền Func<string> vào vị trí thứ 3
                 () => PasswordBox.Password,
+                // Truyền Action<Customer> vào vị trí thứ 4
                 customer =>
                 {
-                    var main = new MainWindow(customerService, roomService);
+                    var main = new MainWindow(customerService, roomService, bookingService, authService);
                     main.Show();
                     this.Close();
                 });

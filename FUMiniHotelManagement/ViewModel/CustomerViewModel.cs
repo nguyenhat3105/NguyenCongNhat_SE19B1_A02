@@ -14,6 +14,8 @@ namespace FUMiniHotelManagement.ViewModel
     {
         private readonly CustomerService _customerService;
 
+        public bool IsAdmin => SessionManager.IsAdmin; // Dùng để ẩn/hiện nút trong View
+        public bool IsCustomer => SessionManager.IsCustomer;
         public CustomerViewModel(CustomerService customerService)
         {
             _customerService = customerService;
@@ -23,18 +25,17 @@ namespace FUMiniHotelManagement.ViewModel
             SearchCommand = new RelayCommand(_ => Search());
             RefreshCommand = new RelayCommand(_ => LoadCustomers());
             DeleteCommand = new RelayCommand(_ => DeleteSelected(), _ => SelectedCustomer != null);
-            SaveCommand = new RelayCommand(SaveChanges);
+            SaveCommand = new RelayCommand(_ => SaveCustomer(), _ => EditingCustomer != null);
+            AddCommand = new RelayCommand(_ => StartAddCustomer());
         }
+
+        public ObservableCollection<Customer> Customers { get; set; }
 
         private string _searchText;
         public string SearchText
         {
             get => _searchText;
-            set
-            {
-                _searchText = value;
-                OnPropertyChanged(nameof(SearchText));
-            }
+            set { _searchText = value; OnPropertyChanged(nameof(SearchText)); }
         }
 
         private Customer _selectedCustomer;
@@ -44,27 +45,77 @@ namespace FUMiniHotelManagement.ViewModel
             set
             {
                 _selectedCustomer = value;
+                if (value != null)
+                {
+                    EditingCustomer = new Customer
+                    {
+                        CustomerId = value.CustomerId,
+                        CustomerFullName = value.CustomerFullName,
+                        EmailAddress = value.EmailAddress,
+                        Telephone = value.Telephone,
+                        CustomerBirthday = value.CustomerBirthday,
+                        CustomerStatus = value.CustomerStatus,
+                        Password = value.Password
+                    };
+                    IsAddingNew = false;
+                }
                 OnPropertyChanged(nameof(SelectedCustomer));
             }
         }
 
-        public ObservableCollection<Customer> Customers { get; set; }
+        private Customer _editingCustomer;
+        public Customer EditingCustomer
+        {
+            get => _editingCustomer;
+            set { _editingCustomer = value; OnPropertyChanged(nameof(EditingCustomer)); }
+        }
+
+        private bool _isAddingNew;
+        public bool IsAddingNew
+        {
+            get => _isAddingNew;
+            set { _isAddingNew = value; OnPropertyChanged(nameof(IsAddingNew)); }
+        }
 
         public ICommand SearchCommand { get; }
         public ICommand RefreshCommand { get; }
         public ICommand DeleteCommand { get; }
         public ICommand SaveCommand { get; }
+        public ICommand AddCommand { get; }
 
-        // 🟢 Load toàn bộ danh sách khách hàng
+        //private void LoadCustomers()
+        //{
+        //    Customers.Clear();
+        //    var list = _customerService.GetAll();
+        //    foreach (var c in list)
+        //        Customers.Add(c);
+        //}
+
+
         private void LoadCustomers()
         {
             Customers.Clear();
-            var list = _customerService.GetAll();
-            foreach (var c in list)
-                Customers.Add(c);
+
+            if (SessionManager.IsAdmin)
+            {
+                // ADMIN: Tải tất cả khách hàng
+                var list = _customerService.GetAll();
+                foreach (var c in list)
+                    Customers.Add(c);
+            }
+            else if (SessionManager.IsCustomer && SessionManager.CurrentUser != null)
+            {
+                // CUSTOMER: Tải duy nhất profile của họ
+                var self = _customerService.GetById(SessionManager.CurrentUser.CustomerId);
+                if (self != null)
+                {
+                    Customers.Add(self);
+                    // Cần chọn customer đó và bắt đầu chế độ chỉnh sửa/xem
+                    SelectedCustomer = self;
+                }
+            }
         }
 
-        // 🟡 Tìm kiếm khách hàng
         private void Search()
         {
             if (string.IsNullOrWhiteSpace(SearchText))
@@ -84,7 +135,6 @@ namespace FUMiniHotelManagement.ViewModel
                 Customers.Add(c);
         }
 
-        // 🔴 Xóa khách hàng
         private void DeleteSelected()
         {
             if (SelectedCustomer == null)
@@ -93,36 +143,53 @@ namespace FUMiniHotelManagement.ViewModel
                 return;
             }
 
-            var confirm = MessageBox.Show(
-                $"Bạn có chắc muốn xóa khách hàng '{SelectedCustomer.CustomerFullName}'?",
-                "Xác nhận xóa", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            if (confirm == MessageBoxResult.Yes)
+            if (MessageBox.Show($"Xóa khách hàng '{SelectedCustomer.CustomerFullName}'?", "Xác nhận", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 _customerService.Delete(SelectedCustomer.CustomerId);
                 LoadCustomers();
+                EditingCustomer = null;
             }
         }
 
-        // 💾 Lưu thay đổi
-        private void SaveChanges(object obj)
+        private void StartAddCustomer()
+        {
+            IsAddingNew = true;
+            EditingCustomer = new Customer
+            {
+                CustomerBirthday = DateOnly.FromDateTime(DateTime.Now),
+                CustomerStatus = 1
+            };
+        }
+
+        private void SaveCustomer()
         {
             try
             {
-                foreach (var customer in Customers)
+                if (EditingCustomer == null) return;
+
+                if (IsAddingNew)
                 {
-                    _customerService.Update(customer);
+                    _customerService.Add(EditingCustomer);
+                    Customers.Add(EditingCustomer);
+                    MessageBox.Show("Đã thêm khách hàng mới!", "Thành công");
                 }
-                MessageBox.Show("Đã lưu các thay đổi!", "Thành công", MessageBoxButton.OK, MessageBoxImage.Information);
+                else
+                {
+                    _customerService.Update(EditingCustomer);
+                    MessageBox.Show("Đã cập nhật thông tin khách hàng!", "Thành công");
+                }
+
+                LoadCustomers();
+                IsAddingNew = false;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi lưu: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Lỗi khi lưu khách hàng: {ex.Message}");
             }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string propertyName)
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        protected void OnPropertyChanged(string name)
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 }

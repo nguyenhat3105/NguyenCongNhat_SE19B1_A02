@@ -1,6 +1,7 @@
 ﻿using FUMiniHotelManagement.BLL.Services;
 using FUMiniHotelManagement.DAL.Entities;
 using FUMiniHotelManagement.Helper;
+using FUMiniHotelManagement.Views;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
@@ -21,6 +22,8 @@ namespace FUMiniHotelManagement.ViewModel
             RefreshCommand = new RelayCommand(_ => LoadRooms());
             DeleteCommand = new RelayCommand(_ => DeleteSelected(), _ => SelectedRoom != null);
             SaveCommand = new RelayCommand(SaveChanges);
+            AddCommand = new RelayCommand(_ => AddNewRoom());
+            UpdateCommand = new RelayCommand(_ => UpdateRoom(), _ => SelectedRoom != null);
         }
 
         public ObservableCollection<RoomInformation> Rooms { get; set; }
@@ -36,9 +39,24 @@ namespace FUMiniHotelManagement.ViewModel
             }
         }
 
+        // 🆕 Properties để binding form nhập
+        private RoomInformation _newRoom = new RoomInformation();
+        public RoomInformation NewRoom
+        {
+            get => _newRoom;
+            set
+            {
+                _newRoom = value;
+                OnPropertyChanged(nameof(NewRoom));
+            }
+        }
+
+        // 🧩 Commands
         public ICommand RefreshCommand { get; }
         public ICommand DeleteCommand { get; }
         public ICommand SaveCommand { get; }
+        public ICommand AddCommand { get; }
+        public ICommand UpdateCommand { get; }
 
         private void LoadRooms()
         {
@@ -72,6 +90,32 @@ namespace FUMiniHotelManagement.ViewModel
                 _roomService.Update(r);
 
             MessageBox.Show("Đã lưu thay đổi!");
+        }
+
+        // 🆕 Thêm mới phòng
+        private void AddNewRoom()
+        {
+            var dialog = new AddRoomDialog();
+            if (dialog.ShowDialog() == true)
+            {
+                _roomService.Create(dialog.NewRoom);
+                LoadRooms();
+                MessageBox.Show("Thêm phòng mới thành công!");
+            }
+        }
+
+        // 🆕 Cập nhật phòng đang chọn
+        private void UpdateRoom()
+        {
+            if (SelectedRoom == null)
+            {
+                MessageBox.Show("Chưa chọn phòng để cập nhật!");
+                return;
+            }
+
+            _roomService.Update(SelectedRoom);
+            MessageBox.Show($"Đã cập nhật thông tin phòng {SelectedRoom.RoomNumber}!");
+            LoadRooms();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

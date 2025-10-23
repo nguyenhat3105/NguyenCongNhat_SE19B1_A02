@@ -13,6 +13,6 @@ namespace FUMiniHotelManagement.BLL.Services
         RoomInformation? GetById(int roomId);
         void Update(RoomInformation roomInformation);
         void Delete(RoomInformation roomInformation);
-
+        void Create(RoomInformation roomInformation);
     }
 }

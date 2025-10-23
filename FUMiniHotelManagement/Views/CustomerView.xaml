@@ -1,35 +1,157 @@
 ﻿<UserControl x:Class="FUMiniHotelManagement.Views.CustomerView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:helper="clr-namespace:FUMiniHotelManagement.Helper"
+             xmlns:viewmodel="clr-namespace:FUMiniHotelManagement.ViewModel"
+             d:DataContext="{d:DesignInstance Type=viewmodel:CustomerViewModel}"
+             mc:Ignorable="d"
+             d:DesignHeight="600" d:DesignWidth="1000"
+             Background="#FAFAFA">
+
+    <UserControl.Resources>
+        <helper:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <helper:BoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter"/>
+
+        <!-- Style nút cam -->
+        <Style x:Key="OrangeButton" TargetType="Button">
+            <Setter Property="Background" Value="#FF8C00"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderBrush" Value="#FF8C00"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="4,2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="4,0,0,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="4"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FFA733"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#FF7800"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
 
     <Grid Margin="10">
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="Auto" MinHeight="23.96"/>
-        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
 
-        <!-- Danh sách khách hàng -->
-        <DataGrid Grid.Row="0"
-                  ItemsSource="{Binding Customers}"
-                  SelectedItem="{Binding SelectedCustomer}"
-                  AutoGenerateColumns="False"
-                  CanUserAddRows="False"
-                  IsReadOnly="False" Margin="0,0,0,24" Grid.RowSpan="2">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding CustomerId}" Width="60"/>
-                <DataGridTextColumn Header="Họ tên" Binding="{Binding CustomerFullName}" Width="*"/>
-                <DataGridTextColumn Header="Email" Binding="{Binding EmailAddress}" Width="220"/>
-                <DataGridTextColumn Header="Điện thoại" Binding="{Binding Telephone}" Width="120"/>
-                <DataGridTextColumn Header="Ngày sinh" Binding="{Binding CustomerBirthday, StringFormat=\{0:yyyy-MM-dd\}}" Width="120"/>
-                <DataGridTextColumn Header="Trạng thái" Binding="{Binding CustomerStatus}" Width="80"/>
-                <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="80"/>
-            </DataGrid.Columns>
-        </DataGrid>
+        <!-- DANH SÁCH KHÁCH HÀNG -->
+        <Border Background="White" CornerRadius="8" BorderBrush="#DDD" BorderThickness="1" Margin="5" Padding="5">
+            <DockPanel>
+                <!-- Thanh công cụ -->
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="10">
+                    <TextBox Width="200"
+                             Height="26"
+                             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                             BorderBrush="#FF8C00"
+                             BorderThickness="1"
+                             VerticalContentAlignment="Center" />
+                    <Button Content="Tìm" 
+        Width="60" Height="34" 
+        Margin="0,0,6,0"
+        Command="{Binding SearchCommand}" 
+        Style="{StaticResource OrangeButton}" />
 
-        <!-- Footer -->
-        <TextBlock Grid.Row="1"
-                   HorizontalAlignment="Left"
-                   Margin="4,8,0,0"
-                   Text="{Binding Customers.Count, StringFormat=Tổng khách hàng: {0}}" Width="0"/>
+                    <Button Content="Làm mới" 
+        Width="60" Height="34" 
+        Margin="0,0,6,0"
+        Command="{Binding RefreshCommand}" 
+        Style="{StaticResource OrangeButton}" />
+
+                    <Button Content="Thêm" 
+        Width="60" Height="34" 
+        Margin="0,0,6,0"
+        Command="{Binding AddCommand}" 
+        Style="{StaticResource OrangeButton}" />
+
+                    <Button Content="Xóa" 
+        Width="60" Height="34" 
+        Command="{Binding DeleteCommand}" 
+        Style="{StaticResource OrangeButton}" />
+
+                </StackPanel>
+
+                <!-- Bảng danh sách -->
+                <DataGrid ItemsSource="{Binding Customers}"
+                          SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}"
+                          AutoGenerateColumns="False"
+                          Background="White"
+                          Foreground="Black"
+                          AlternatingRowBackground="#FFF3E0"
+                          HeadersVisibility="Column"
+                          BorderBrush="#FF8C00"
+                          BorderThickness="1"
+                          Margin="10"
+                          RowHeight="28">
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="#FFB74D"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="Height" Value="30"/>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding CustomerId}" Width="30"/>
+                        <DataGridTextColumn Header="Họ tên" Binding="{Binding CustomerFullName}" Width="*"/>
+                        <DataGridTextColumn Header="Email" Binding="{Binding EmailAddress}" Width="*"/>
+                        <DataGridTextColumn Header="SĐT" Binding="{Binding Telephone}" Width="*"/>
+                        <DataGridTextColumn Header="Ngày sinh" Binding="{Binding CustomerBirthday}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+        </Border>
+
+        <!-- FORM CHI TIẾT -->
+        <Border Grid.Column="1" Background="White" CornerRadius="8" BorderBrush="#DDD" BorderThickness="1" Margin="5" Padding="10">
+            <StackPanel Margin="10">
+                <TextBlock Text="THÔNG TIN KHÁCH HÀNG"
+                           FontSize="18" FontWeight="Bold" Foreground="#FF8C00" Margin="0,0,0,15"/>
+
+                <TextBlock Text="Họ tên:" Foreground="#333"/>
+                <TextBox Text="{Binding EditingCustomer.CustomerFullName, UpdateSourceTrigger=PropertyChanged}" Height="26" BorderBrush="#FF8C00"/>
+
+                <TextBlock Text="Email:" Foreground="#333" Margin="0,8,0,0"/>
+                <TextBox Text="{Binding EditingCustomer.EmailAddress, UpdateSourceTrigger=PropertyChanged}" Height="26" BorderBrush="#FF8C00"/>
+
+                <TextBlock Text="Số điện thoại:" Foreground="#333" Margin="0,8,0,0"/>
+                <TextBox Text="{Binding EditingCustomer.Telephone, UpdateSourceTrigger=PropertyChanged}" Height="26" BorderBrush="#FF8C00"/>
+
+                <TextBlock Text="Ngày sinh:" Foreground="#333" Margin="0,8,0,0"/>
+                <DatePicker SelectedDate="{Binding EditingCustomer.CustomerBirthday, Mode=TwoWay}" Height="26" BorderBrush="#FF8C00"/>
+
+                <TextBlock Text="Mật khẩu:" Foreground="#333" Margin="0,8,0,0"/>
+                <PasswordBox Height="26"
+             BorderBrush="#FF8C00"
+             helper:PasswordHelper.BindPassword="True"
+             helper:PasswordHelper.BoundPassword="{Binding EditingCustomer.Password, Mode=TwoWay}" />
+
+
+                <!-- Nút lưu / hủy -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
+                        <Button Content="Lưu" Width="100" Height="40" Style="{StaticResource OrangeButton}" Command="{Binding SaveCommand}" />
+                        <Button Content="Hủy" Width="100" Style="{StaticResource OrangeButton}" Margin="10,0,0,0" Command="{Binding CancelCommand}" />
+                    </StackPanel>
+            </StackPanel>
+        </Border>
     </Grid>
 </UserControl>

@@ -19,10 +19,13 @@ namespace FUMiniHotelManagement
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow(CustomerService customerService, RoomService roomService)
+        public MainWindow(CustomerService customerService, RoomService roomService, BookingReservationService bookingService, AuthenticationService authenticationService)
         {
             InitializeComponent();
-            var vm = new MainViewModel(customerService, roomService);
+            var vm = new MainViewModel(customerService, roomService, bookingService, authenticationService);
+            
+            vm.RequestClose = () => this.Close();
+
             DataContext = vm;
         }
 

@@ -15,6 +15,15 @@
         <DataTemplate DataType="{x:Type vm:RoomViewModel}">
             <v:RoomView />
         </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:BookingReservationViewModel}">
+            <v:BookingReservationView />
+        </DataTemplate>
+
+
+
     </Application.Resources>
-    
+
+
+
 </Application>

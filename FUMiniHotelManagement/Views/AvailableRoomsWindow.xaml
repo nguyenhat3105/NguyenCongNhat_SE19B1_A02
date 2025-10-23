@@ -1,0 +1,163 @@
+﻿<Window x:Class="FUMiniHotelManagement.Views.AvailableRoomsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Danh sách phòng trống" Height="480" Width="820"
+        WindowStartupLocation="CenterOwner"
+        Background="White"
+        FontFamily="Segoe UI"
+        FontSize="14">
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="AccentBrush" Color="#FFB74D" />
+        <SolidColorBrush x:Key="AccentDarkBrush" Color="#F57C00" />
+        <SolidColorBrush x:Key="HeaderBrush" Color="#FFF3E0" />
+        <SolidColorBrush x:Key="RowAltBrush" Color="#FFF8F1" />
+        <SolidColorBrush x:Key="GridBorderBrush" Color="#FFE0B2" />
+        <SolidColorBrush x:Key="TextBrush" Color="#333333" />
+
+        <Style x:Key="WindowTitleText" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="{StaticResource AccentDarkBrush}"/>
+            <Setter Property="Margin" Value="8,6,0,6"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="PrimaryButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource AccentBrush}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="Margin" Value="6"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="6"
+                                SnapsToDevicePixels="True">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource AccentDarkBrush}"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.5"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="{StaticResource HeaderBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Padding" Value="10,8" />
+            <Setter Property="BorderThickness" Value="0,0,0,1" />
+            <Setter Property="BorderBrush" Value="{StaticResource GridBorderBrush}" />
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="DataGridRow">
+            <Setter Property="Background" Value="White" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Style.Triggers>
+                <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                    <Setter Property="Background" Value="{StaticResource RowAltBrush}"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FFF3E0"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="{StaticResource AccentBrush}"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="DataGridCell">
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="BorderBrush" Value="{StaticResource GridBorderBrush}"/>
+        </Style>
+
+        <Style x:Key="CellTextBlock" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Padding" Value="4,2"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="14">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Danh sách phòng trống" Style="{StaticResource WindowTitleText}" />
+
+        <Border Grid.Row="1" CornerRadius="8" BorderThickness="1" BorderBrush="{StaticResource GridBorderBrush}" Background="White" Padding="6">
+            <DataGrid ItemsSource="{Binding Rooms}" AutoGenerateColumns="False"
+                      CanUserAddRows="False" IsReadOnly="True" HeadersVisibility="Column"
+                      GridLinesVisibility="None" SelectionMode="Single"
+                      HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
+                      FontSize="14"
+                      AlternationCount="2">
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Mã phòng" Width="1*" 
+                                        Binding="{Binding RoomId, TargetNullValue=''}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource CellTextBlock}"/>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Số phòng" Width="1*" 
+                                        Binding="{Binding RoomNumber, TargetNullValue=''}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource CellTextBlock}"/>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Loại phòng" Width="2*"
+                                        Binding="{Binding RoomType.RoomTypeName, TargetNullValue=''}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource CellTextBlock}"/>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Giá/ngày" Width="1*" 
+                                        Binding="{Binding RoomPricePerDay, StringFormat=N0, TargetNullValue=''}">
+
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                              
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource CellTextBlock}">
+            
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+
+            </DataGrid>
+        </Border>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+            <Button Style="{StaticResource PrimaryButton}" Width="110" Height="38" Content="Đóng" Click="Close_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

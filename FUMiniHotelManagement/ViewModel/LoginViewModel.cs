@@ -1,6 +1,6 @@
-﻿using FUMiniHotelManagement.Helper;
-using FUMiniHotelManagement.BLL.Services;
+﻿using FUMiniHotelManagement.BLL.Services;
 using FUMiniHotelManagement.DAL.Entities;
+using FUMiniHotelManagement.Helper;
 using System;
 using System.Windows;
 using System.Windows.Input;
@@ -9,13 +9,16 @@ namespace FUMiniHotelManagement.ViewModel
 {
     public class LoginViewModel : ObservableObject
     {
-        private readonly ICustomerService _customerService;
+        private readonly CustomerService _customerService;
+        private readonly AuthenticationService _authService;
         private readonly Func<string> _getPassword;
         private readonly Action<Customer>? _onLoginSuccess;
+        
 
-        public LoginViewModel(ICustomerService customerService, Func<string> getPassword, Action<Customer>? onLoginSuccess = null)
+        public LoginViewModel(CustomerService customerService ,AuthenticationService authService, Func<string> getPassword, Action<Customer>? onLoginSuccess = null)
         {
-            _customerService = customerService ?? throw new ArgumentNullException(nameof(customerService));
+            _customerService = customerService;
+            _authService = authService ?? throw new ArgumentNullException(nameof(authService));
             _getPassword = getPassword ?? throw new ArgumentNullException(nameof(getPassword));
             _onLoginSuccess = onLoginSuccess;
 
@@ -23,7 +26,6 @@ namespace FUMiniHotelManagement.ViewModel
         }
 
         // ---------------------- PROPERTIES ----------------------
-
         private string _email = string.Empty;
         public string Email
         {
@@ -31,7 +33,7 @@ namespace FUMiniHotelManagement.ViewModel
             set
             {
                 if (SetProperty(ref _email, value))
-                    CommandManager.InvalidateRequerySuggested(); // cập nhật trạng thái nút login
+                    CommandManager.InvalidateRequerySuggested();
             }
         }
 
@@ -47,13 +49,10 @@ namespace FUMiniHotelManagement.ViewModel
         }
 
         // ---------------------- COMMANDS ----------------------
-
         public ICommand LoginCommand { get; }
 
-        private bool CanLogin(object? parameter)
-        {
-            return !IsBusy && !string.IsNullOrWhiteSpace(Email);
-        }
+        private bool CanLogin(object? parameter) =>
+            !IsBusy && !string.IsNullOrWhiteSpace(Email);
 
         private void ExecuteLogin(object? parameter)
         {
@@ -70,8 +69,8 @@ namespace FUMiniHotelManagement.ViewModel
                     return;
                 }
 
-                // Gọi service để kiểm tra đăng nhập
-                var customer = _customerService.Login(email, password);
+                // Dùng AuthenticationService để đăng nhập
+                var customer = _authService.Login(email, password);
 
                 if (customer == null)
                 {
@@ -79,14 +78,17 @@ namespace FUMiniHotelManagement.ViewModel
                     return;
                 }
 
-                MessageBox.Show("Đăng nhập thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                // ✅ Lưu user vào session
+                SessionManager.SetCurrentUser(customer);
 
-                // Gọi callback mở cửa sổ chính
+                MessageBox.Show($"Xin chào {customer.CustomerFullName}!", "Đăng nhập thành công", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                // Callback mở MainWindow
                 _onLoginSuccess?.Invoke(customer);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi đăng nhập: " + ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Lỗi khi đăng nhập: {ex.Message}", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {
